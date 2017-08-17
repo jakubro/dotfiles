@@ -1,7 +1,7 @@
 # workspace
 $workspace = @{
   location = Join-Path (Get-Item $Profile).Directory.FullName ".env"
-  env = @{ root = "C:\dev\src"; aliases = @{} }
+  env = @{ root = "~"; aliases = @{} }
 }
 
 function Export-WorkspaceEnv {
