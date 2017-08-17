@@ -16,11 +16,9 @@ if (-not (Test-Path($workspace.location))) {
 }
 
 # set aliases
-if($workspace.env.PSobject.Properties.Name -contains "aliases") {
-  $aliases = $workspace.env.aliases
-  foreach($alias in $aliases) {
-    Set-Alias $alias.name $alias.value
-  }
+$aliases = $workspace.env.aliases
+foreach($alias in $aliases) {
+  Set-Alias $alias.name $alias.value
 }
 
 # cd to current project
