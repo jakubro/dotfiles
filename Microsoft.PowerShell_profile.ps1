@@ -1,28 +1,25 @@
-# workspace
-$workspace = @{
-  location = Join-Path (Get-Item $Profile).Directory.FullName ".env"
-  env = @{ root = "~"; aliases = @{} }
-}
-
-function Export-WorkspaceEnv {
-  $workspace.env | ConvertTo-Json | Out-File -Encoding utf8 $workspace.location
-}
-
 # import workspace
-if (-not (Test-Path($workspace.location))) {
-  Export-WorkspaceEnv
+$workspace = @{ CWD = "~" }
+if (Test-Path("~\.env")) {
+  $workspace = Get-Content "~\.env" | ConvertFrom-StringData
+}
+
+ # current working directory (across multiple sessions)
+if($workspace.CWD -and (Test-Path $workspace.CWD)) {
+  cd $workspace.CWD
 } else {
-  $workspace.env = Get-Content $workspace.location | ConvertFrom-Json
+  cd "~"
 }
 
 # set aliases
-$aliases = $workspace.env.aliases
-foreach($alias in $aliases) {
-  Set-Alias $alias.name $alias.value
-}
-
-# cd to current project
-cd $workspace.env.root
+Set-Alias codecompare "${env:ProgramFiles}\Devart\Code Compare\CodeCompare.exe"
+Set-Alias codemerge "${env:ProgramFiles}\Devart\Code Compare\CodeMerge.exe"
+Set-Alias de4dot "C:\tools\de4dot\de4dot-x64.exe"
+Set-Alias devenv "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
+Set-Alias openssl "C:\tools\OpenSSL-Win32\bin\openssl.exe"
+Set-Alias sublime_text "${env:ProgramFiles}\Sublime Text 3\subl.exe"
+Set-Alias totalcmd "C:\tools\totalcmd\TOTALCMD64.EXE"
+Set-Alias winrar "${env:ProgramFiles}\WinRAR\WinRAR.exe"
 
 # check changes in %PATH%
 Invoke-Command -ScriptBlock {
@@ -47,7 +44,7 @@ Invoke-Command -ScriptBlock {
   
   function Create-PathDump {
     $Timestamp = [DateTime]::UtcNow.ToString('o').Replace(':','.')
-    $TimestampFile = "~\.path.$Timestamp.txt"
+    $TimestampFile = Join-Path (Get-Item $Profile).Directory.FullName "backup\.path.$Timestamp.txt"
     
     $ResultMessage = "Current %PATH% was saved to $PathFile"
 
