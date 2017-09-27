@@ -1,11 +1,12 @@
 Set-StrictMode -Version 2.0
 
+# clean old backups
 try {
   Remove-Item D:\archive\* -Include "*.rar"
 } catch { }
 
+# create new backup
 $timestamp = [DateTime]::UtcNow.ToString("yyyyMMddHHmmssZ")
-
 $source = "C:\dev\src"
 $destination = "D:\archive\src_$timestamp.rar"
 
