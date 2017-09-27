@@ -3,14 +3,13 @@ Set-StrictMode -Version 2.0
 
 # import workspace
 $workspace = @{ CWD = "~" }
-if (Test-Path("~\.env")) {
-
+if (Test-Path "~\.env") {
   $temp = Get-Content "~\.env" | ConvertFrom-StringData
   $workspace = Merge-Hashtables $workspace $temp
 }
 
  # current working directory (across multiple sessions)
-if ((Test-Path $workspace.CWD)) {
+if (Test-Path $workspace.CWD) {
   cd $workspace.CWD
 } else {
   cd "~"
