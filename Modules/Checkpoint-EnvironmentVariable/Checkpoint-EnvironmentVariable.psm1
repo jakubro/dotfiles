@@ -35,7 +35,6 @@ function Checkpoint-EnvironmentVariable(
   [parameter(Mandatory=$true)] [string] $Name,
   [parameter(Mandatory=$true)] [string] $File
 ) {
-
   $Name = $Name.ToUpper()
   $newValue = (Get-Item env:$Name).Value
   $oldValue = $null

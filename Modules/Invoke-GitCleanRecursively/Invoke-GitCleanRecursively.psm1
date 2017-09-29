@@ -1,7 +1,7 @@
 Set-StrictMode -Version 2.0
 
-function Invoke-GitCleanRecursively($Level, $Path) {
-  if ($Level -lt 1) {
+function Invoke-GitCleanRecursively([int] $Level = 1, [string] $Path) {
+  if ($Level -lt 0) {
     return
   }
   if ([string]::IsNullOrWhiteSpace($Path)) {
@@ -15,7 +15,7 @@ function Invoke-GitCleanRecursively($Level, $Path) {
       Write-Host -ForegroundColor yellow "  cleaning"
       git clean -xdf
     }
-  } elseif ($Level -gt 1) {
+  } elseif ($Level -gt 0) {
     Write-Host "recursing into '$Path'"
     $items = Get-ChildItem $Path
     foreach ($item in $items) {

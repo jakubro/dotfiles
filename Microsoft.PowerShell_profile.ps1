@@ -35,4 +35,5 @@ Set-Alias devenv "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2017\Communit
 Set-Alias openssl "C:\tools\OpenSSL-Win32\bin\openssl.exe"
 Set-Alias sublime_text "${env:ProgramFiles}\Sublime Text 3\subl.exe"
 Set-Alias totalcmd "C:\tools\totalcmd\TOTALCMD64.EXE"
+Set-Alias vim "${env:ProgramFiles(x86)}\Vim\vim80"
 Set-Alias winrar "${env:ProgramFiles}\WinRAR\WinRAR.exe"
