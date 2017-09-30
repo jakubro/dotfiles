@@ -1,5 +1,36 @@
 Set-StrictMode -Version 2.0
 
+<#
+.SYNOPSIS
+Invokes recursive git clean (git clean -xdf) in specified directory.
+
+.PARAMETER level
+How deep to recurse into subdirectories.
+
+Default value is 1.
+
+Note on values:
+  Value 0 - this directory.
+  Value 1 - this directory and all subdirectories.
+  Value 2 - this directory, all subdirectories and all their subdirectories.
+  ...
+
+.PARAMETER path
+Path to directory where to start recursive git clean.
+
+Default value is current working directory.
+
+.EXAMPLE
+Start recursive git clean in current directory and recurse up to second level.
+
+Invoke-GitCleanRecursively -Level 2
+
+.EXAMPLE
+Start recursive git clean in provided directory.
+
+Invoke-GitCleanRecursively -Path ~\Projects\
+#>
+
 function Invoke-GitCleanRecursively([int] $Level = 1, [string] $Path) {
   if ($Level -lt 0) {
     return
