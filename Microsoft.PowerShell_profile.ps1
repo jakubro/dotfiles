@@ -1,30 +1,32 @@
-#Requires -Modules Merge-Hashtables
+#Requires -Modules Merge-Hashtables, Checkpoint-EnvironmentVariable
 Set-StrictMode -Version 2.0
 
-# import workspace
-$workspace = @{ CWD = "~" }
-if (Test-Path "~\.env") {
-  $temp = Get-Content "~\.env" | ConvertFrom-StringData
-  $workspace = Merge-Hashtables $workspace $temp
-}
+& {
+  # import workspace
+  $defaultWorkspace = @{ CWD = "~" }
+  $workspace = $defaultWorkspace
+  if (Test-Path "~\.env") {
+    $importedWorkspace = Get-Content "~\.env" | ConvertFrom-StringData
+    $workspace = Merge-Hashtables $defaultWorkspace $importedWorkspace
+  }
 
- # current working directory (across multiple sessions)
-if (Test-Path $workspace.CWD) {
-  cd $workspace.CWD
-} else {
-  cd "~"
+  # current working directory (across multiple sessions)
+  if (Test-Path $workspace.CWD) {
+    cd $workspace.CWD
+  } else {
+    cd $defaultWorkspace.CWD
+  }
 }
 
 # check changes in %PATH%
-Invoke-Command -ScriptBlock {
-  Import-Module Checkpoint-EnvironmentVariable
-  Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
-}
+Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
 
 # chocolatey
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
+& {
+  $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+  if (Test-Path $ChocolateyProfile) {
+    Import-Module "$ChocolateyProfile"
+  }
 }
 
 # aliases
