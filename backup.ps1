@@ -1,14 +1,24 @@
 Set-StrictMode -Version 2.0
 
 # what to backup & where to save the backup
+
 $timestamp = [DateTime]::UtcNow.ToString("yyyyMMddHHmmssZ")
 $source = "C:\dev\src"
 $destination = "D:\archive\src_$timestamp.rar"
 
-# clean old backups
+# clean old backups if any, as they should already be backed up to a 
+# long term storage by other means
+
 try {
   Remove-Item D:\archive\* -Include "*.rar"
-} catch { }
+} catch {
+  # ignore errors caused by trying to remove file that were locked by
+  # other process
+  #
+  # todo: rewrite to 1) if file is not locked - remove it
+  #                  2) otherwise - do nothing
+  #                  3) process 1 file a time and wrap it all in try/catch (w/ log in catch)
+}
 
 # WinRar arguments explanation:
 #     a                 create archive
