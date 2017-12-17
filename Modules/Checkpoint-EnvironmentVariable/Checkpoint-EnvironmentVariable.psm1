@@ -14,8 +14,8 @@ function Compare-EnvironmentVariable([string] $Name, [string] $OldValue, [string
   }
   else {
     Write-Warning "Changes in %$Name%: Detected"
-    $a = $OldValue -split ";"
-    $b = $NewValue -split ";"
+    $a = $NewValue -split ";"
+    $b = $OldValue -split ";"
     Compare-Object $a $b | Format-Color @{"=>" = "Red"; "<=" = "Green"}
     return 1
   }
