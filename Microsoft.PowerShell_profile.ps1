@@ -19,7 +19,7 @@ Set-StrictMode -Version 2.0
 }
 
 # check changes in %PATH%
-if (-not $env:SupressEnvCheckpoint) {
+if (!$env:SupressEnvironmentVariableCheckpoint) {
   Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
 }
 
@@ -34,8 +34,8 @@ if (-not $env:SupressEnvCheckpoint) {
 # prompt
 function Prompt {
   $prefix = ""
-  if (-not [string]::IsNullOrWhiteSpace($env:ParentPromptName)) {
-    $name = $env:ParentPromptName.Trim()
+  if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
+    $name = $env:ParentPSPromptName.Trim()
     $prefix = "($name) "
   }
   "PS " + $prefix + (Get-Date -Format "HH:mm") + " " + (Get-Location) + ">"
@@ -45,8 +45,8 @@ function Prompt {
 function Set-CondaEnvironment {
   cmd /C (
     "C:\ProgramData\Anaconda3\Scripts\activate $args && " +
-    "set SupressEnvCheckpoint=true && " +
-    "set ParentPromptName=$args && " +
+    "set SupressEnvironmentVariableCheckpoint=true && " +
+    "set ParentPSPromptName=$args && " +
     "powershell -NoExit -NoLogo"
   )
 }
