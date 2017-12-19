@@ -1,8 +1,8 @@
 #Requires -Modules Merge-Hashtables, Checkpoint-EnvironmentVariable
 Set-StrictMode -Version 2.0
 
+# load workspace (i.e. settings shared across multiple PS sessions)
 & {
-  # import workspace
   $defaultWorkspace = @{ CWD = "~" }
   $workspace = $defaultWorkspace
   if (Test-Path "~\.env") {
@@ -10,7 +10,7 @@ Set-StrictMode -Version 2.0
     $workspace = Merge-Hashtables $defaultWorkspace $importedWorkspace
   }
 
-  # current working directory (across multiple sessions)
+  # current working directory
   if (Test-Path $workspace.CWD) {
     cd $workspace.CWD
   } else {
@@ -31,7 +31,7 @@ if (!$env:SupressEnvironmentVariableCheckpoint) {
   }
 }
 
-# prompt
+# PowerShell prompt
 function Prompt {
   $prefix = ""
   if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
@@ -42,27 +42,38 @@ function Prompt {
 }
 
 # conda
-function Set-CondaEnvironment {
-  cmd /C (
-    "C:\ProgramData\Anaconda3\Scripts\activate $args && " +
-    "set SupressEnvironmentVariableCheckpoint=true && " +
-    "set ParentPSPromptName=$args && " +
-    "powershell -NoExit -NoLogo"
-  )
+Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
+
+& {
+  function Set-CondaEnvironment {
+    cmd /C (
+      "C:\ProgramData\Anaconda3\Scripts\activate $args && " +
+      "set SupressEnvironmentVariableCheckpoint=true && " +
+      "set ParentPSPromptName=$args && " +
+      "powershell -NoExit -NoLogo"
+    )
+  }
+
+  Set-Alias conda-activate Set-CondaEnvironment
 }
 
-Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
-Set-Alias conda-activate Set-CondaEnvironment
+# editors
+Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
+Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
+Set-Alias vim "C:\Program Files (x86)\Vim\vim80"
 
-# aliases
+# dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
 Set-Alias codemerge "C:\Program Files\Devart\Code Compare\CodeMerge.exe"
-Set-Alias de4dot "C:\tools\de4dot\de4dot-x64.exe"
-Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
-Set-Alias openssl "C:\tools\OpenSSL-Win32\bin\openssl.exe"
-Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
+
+# hashicorp
 Set-Alias terraform "C:\tools\terraform\terraform.exe"
+
+# win utils
 Set-Alias totalcmd "C:\tools\totalcmd\TOTALCMD64.EXE"
-Set-Alias vim "C:\Program Files (x86)\Vim\vim80"
 Set-Alias winrar "C:\Program Files\WinRAR\WinRAR.exe"
+
+# misc
+Set-Alias de4dot "C:\tools\de4dot\de4dot-x64.exe"
+Set-Alias openssl "C:\tools\OpenSSL-Win32\bin\openssl.exe"
 Set-Alias wireshark "C:\Program Files\Wireshark\Wireshark.exe"
