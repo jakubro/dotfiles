@@ -42,20 +42,17 @@ function Prompt {
 }
 
 # conda
-Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
-
-& {
-  function Set-CondaEnvironment {
-    cmd /C (
-      "C:\ProgramData\Anaconda3\Scripts\activate $args && " +
-      "set SupressEnvironmentVariableCheckpoint=true && " +
-      "set ParentPSPromptName=$args && " +
-      "powershell -NoExit -NoLogo"
-    )
-  }
-
-  Set-Alias conda-activate Set-CondaEnvironment
+function Set-CondaEnvironment {
+  cmd /C (
+    "C:\ProgramData\Anaconda3\Scripts\activate $args && " +
+    "set SupressEnvironmentVariableCheckpoint=true && " +
+    "set ParentPSPromptName=$args && " +
+    "powershell -NoExit -NoLogo"
+  )
 }
+  
+Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
+Set-Alias conda-activate Set-CondaEnvironment
 
 # editors
 Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
