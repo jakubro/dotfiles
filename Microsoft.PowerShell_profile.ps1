@@ -33,12 +33,17 @@ if (!$env:SupressEnvironmentVariableCheckpoint) {
 
 # PowerShell prompt
 function Prompt {
-  $prefix = ""
+  $date = Get-Date -Format "HH:mm:ss"
+  $location = $PWD.ProviderPath
+  $promptName = ""
   if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
     $name = $env:ParentPSPromptName.Trim()
-    $prefix = "($name) "
+    $promptName = "($name) "
   }
-  "PS " + $prefix + (Get-Date -Format "HH:mm") + " " + (Get-Location) + ">"
+  Write-Host -NoNewline -ForegroundColor White "$date "
+  Write-Host -NoNewline -ForegroundColor White $promptName
+  Write-Host -NoNewline -ForegroundColor White $location
+  return "> "
 }
 
 # conda
@@ -50,7 +55,7 @@ function Set-CondaEnvironment {
     "powershell -NoExit -NoLogo"
   )
 }
-  
+
 Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
 
