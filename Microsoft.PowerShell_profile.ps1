@@ -11,15 +11,17 @@ Set-StrictMode -Version 2.0
   }
 
   # current working directory
-  if (Test-Path $workspace.CWD) {
-    cd $workspace.CWD
-  } else {
-    cd $defaultWorkspace.CWD
+  if (!$env:ParentPS) {
+    if (Test-Path $workspace.CWD) {
+      cd $workspace.CWD
+    } else {
+      cd $defaultWorkspace.CWD
+    }
   }
 }
 
 # check changes in %PATH%
-if (!$env:SupressEnvironmentVariableCheckpoint) {
+if (!$env:ParentPS) {
   Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
 }
 
@@ -48,10 +50,11 @@ function Prompt {
 
 # conda
 function Set-CondaEnvironment {
+  $condaEnvName = $args[0]
   cmd /C (
-    "C:\ProgramData\Anaconda3\Scripts\activate $args && " +
-    "set SupressEnvironmentVariableCheckpoint=true && " +
-    "set ParentPSPromptName=$args && " +
+    "C:\ProgramData\Anaconda3\Scripts\activate $condaEnvName && " +
+    "set ParentPS=true && " +
+    "set ParentPSPromptName=$condaEnvName && " +
     "powershell -NoExit -NoLogo"
   )
 }
