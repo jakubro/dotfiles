@@ -25,6 +25,9 @@ if (!$env:ParentPS) {
   Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
 }
 
+# expose this directory
+$ProfileDirectory = Split-Path $PROFILE
+
 # chocolatey
 & {
   $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
