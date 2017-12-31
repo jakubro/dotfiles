@@ -1,0 +1,24 @@
+/.vs/
+/packages/
+
+bin/
+obj/
+
+*.suo
+*.user
+
+build.log
+test.log
+
+# SQL Server Projects
+
+*.dbmdl
+*.jfm
+
+# npm/yarn
+
+node_modules/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
