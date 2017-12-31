@@ -2,21 +2,25 @@
 Set-StrictMode -Version 2.0
 
 # load workspace (i.e. settings shared across multiple PS sessions)
-& {
-  $defaultWorkspace = @{ CWD = "~" }
-  $workspace = $defaultWorkspace
+function Import-PSWorkspace {
+  $initial = @{ }
+  $workspace = $initial
   if (Test-Path "~\.env") {
-    $importedWorkspace = Get-Content "~\.env" | ConvertFrom-StringData
-    $workspace = Merge-Hashtables $defaultWorkspace $importedWorkspace
+    $imported = Get-Content "~\.env" | Out-String | ConvertFrom-StringData
+    $workspace = Merge-Hashtables $initial $imported
   }
+  return $workspace
+}
 
-  # current working directory
-  if (!$env:ParentPS) {
-    if (Test-Path $workspace.CWD) {
-      cd $workspace.CWD
-    } else {
-      cd $defaultWorkspace.CWD
-    }
+$PSWorkspace = Import-PSWorkspace
+
+# current working directory
+if (!$env:ParentPS) {
+  if (![string]::IsNullOrWhiteSpace($PSWorkspace["CWD"]) -and
+      (Test-Path $PSWorkspace.CWD)) {
+    cd $PSWorkspace.CWD
+  } else {
+    cd ~
   }
 }
 
