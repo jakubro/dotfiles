@@ -1,27 +1,12 @@
-#Requires -Modules Merge-Hashtables, Checkpoint-EnvironmentVariable
+#Requires -Modules Import-PSWorkspace, Merge-Hashtables, Checkpoint-EnvironmentVariable
 Set-StrictMode -Version 2.0
 
 # load workspace (i.e. settings shared across multiple PS sessions)
-function Import-PSWorkspace {
-  $initial = @{ }
-  $workspace = $initial
-  if (Test-Path "~\.env") {
-    $imported = Get-Content "~\.env" | Out-String | ConvertFrom-StringData
-    $workspace = Merge-Hashtables $initial $imported
-  }
-  return $workspace
-}
-
-$PSWorkspace = Import-PSWorkspace
+$PSWorkspace = Import-PSWorkspace -Path "~\.env" -Initial @{ CWD = "~" }
 
 # current working directory
 if (!$env:ParentPS) {
-  if (![string]::IsNullOrWhiteSpace($PSWorkspace["CWD"]) -and
-      (Test-Path $PSWorkspace.CWD)) {
-    cd $PSWorkspace.CWD
-  } else {
-    cd ~
-  }
+  cd $PSWorkspace.CWD
 }
 
 # check changes in %PATH%
