@@ -1,5 +1,9 @@
-#Requires -Modules Import-PSWorkspace
+#Requires -Modules TryCreate-EventLog, Import-PSWorkspace
 Set-StrictMode -Version 2.0
+
+$logName = "@jakubro/dotfiles"
+$logSource = Split-Path $PSCommandPath -Leaf
+TryCreate-EventLog -LogName $logName -Source $logSource
 
 # load backup configuration from workspace (this script is running
 # in "-NoProfile" environment, so we have to load this manually)
@@ -14,15 +18,16 @@ $PSWorkspace = Import-PSWorkspace -Path "~\.env" -Initial @{
 $timestamp = [DateTime]::UtcNow.ToString("yyyyMMddHHmmssZ")
 
 if ([string]::IsNullOrWhiteSpace($PSWorkspace.BACKUP_SOURCE) -or
-   [string]::IsNullOrWhiteSpace($PSWorkspace.BACKUP_DESTINATION)) {
-  # todo: add error to event log
+    [string]::IsNullOrWhiteSpace($PSWorkspace.BACKUP_DESTINATION)) {
+  Write-EventLog -LogName $logName -Source $logSource -EventID 2001 -EntryType Error `
+    -Message "One of specified directories does not exist."
   return
 }
 
-$source = $PSWorkspace.BACKUP_SOURCE.Trim("\","/") # trailing slash causes arguments to be interpreted incorrectly
+$source = $PSWorkspace.BACKUP_SOURCE.Trim("\", "/") # trailing slash causes arguments to be interpreted incorrectly
 $destination = Join-Path $PSWorkspace.BACKUP_DESTINATION "backup_$timestamp.rar"
 
-# todo: add infor to event log
+Write-EventLog -LogName $logName -Source $logSource -EventID 1000 -EntryType Information -Message "Backup started."
 
 # WinRar arguments explanation:
 #     a                 create archive
@@ -37,5 +42,6 @@ $destination = Join-Path $PSWorkspace.BACKUP_DESTINATION "backup_$timestamp.rar"
 #     -qo-              don't add quick open information
 #     --                stop switches scanning
 
-Write-Host $destination $source
 & "${env:ProgramFiles}\WinRAR\WinRAR.exe" a -t -k -ibck -ma5 -m5 -md1024m -htb -oi:131072 -qo- -- $destination $source
+
+Write-EventLog -LogName $logName -Source $logSource -EventID 1000 -EntryType Information -Message "Backup finished."
