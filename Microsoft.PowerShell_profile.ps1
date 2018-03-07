@@ -59,6 +59,12 @@ function Set-CondaEnvironment {
 Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
 
+# miscellaneous
+function Get-RandomString($Length) {
+  # all printable ascii characters: from char 33 (!) to char 126 (~)
+  return -join ((33..126) | Get-Random -Count Length | % { [char]$_ })
+}
+
 # editors
 Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
 Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
