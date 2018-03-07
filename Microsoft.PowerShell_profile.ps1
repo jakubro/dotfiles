@@ -49,7 +49,7 @@ function Prompt {
 function Set-CondaEnvironment {
   $condaEnvName = $args[0]
   cmd /C (
-    "C:\ProgramData\Anaconda3\Scripts\activate $condaEnvName && " +
+    "C:\ProgramData\Anaconda3\Scripts\activate.bat $condaEnvName && " +
     "set ParentPS=true && " +
     "set ParentPSPromptName=$condaEnvName && " +
     "powershell -NoExit -NoLogo"
