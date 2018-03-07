@@ -26,18 +26,23 @@ $ProfileDirectory = Split-Path $PROFILE
 }
 
 # PowerShell prompt
+$PSCompactPrompt = $false
 function Prompt {
-  $date = Get-Date -Format "HH:mm:ss"
-  $location = $PWD.ProviderPath
-  $promptName = ""
-  if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
-    $name = $env:ParentPSPromptName.Trim()
-    $promptName = "($name) "
+  if ($PSCompactPrompt) {
+    return "$ "
+  } else {
+    $date = Get-Date -Format "HH:mm:ss"
+    $location = $PWD.ProviderPath
+    $promptName = ""
+    if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
+      $name = $env:ParentPSPromptName.Trim()
+      $promptName = "($name) "
+    }
+    Write-Host -NoNewline -ForegroundColor White "$date "
+    Write-Host -NoNewline -ForegroundColor White $promptName
+    Write-Host -NoNewline -ForegroundColor White $location
+    return "> "
   }
-  Write-Host -NoNewline -ForegroundColor White "$date "
-  Write-Host -NoNewline -ForegroundColor White $promptName
-  Write-Host -NoNewline -ForegroundColor White $location
-  return "> "
 }
 
 # conda
