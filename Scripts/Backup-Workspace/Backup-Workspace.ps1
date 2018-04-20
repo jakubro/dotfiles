@@ -8,7 +8,7 @@ TryCreate-EventLog -LogName $logName -Source $logSource
 # load backup configuration from workspace (this script is running
 # in "-NoProfile" environment, so we have to load this manually)
 
-$PSWorkspace = Import-PSWorkspace -Path "~\.env" -Initial @{
+$PSWorkspace = Import-PSWorkspace -Path "~\.env" -Default @{
   BACKUP_SOURCE = $null;
   BACKUP_DESTINATION = $null;
 }
