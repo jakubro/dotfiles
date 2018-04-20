@@ -1,29 +1,24 @@
-#Requires -Modules Import-PSWorkspace, Merge-Hashtables, Checkpoint-EnvironmentVariable
+#Requires -Modules Import-PSWorkspace, Merge-Hashtables, Checkpoint-EnvironmentVariable, Set-CondaEnvironment
 Set-StrictMode -Version 2.0
 
+# Boostrap
+###############################################################################
+
 # load workspace (i.e. settings shared across multiple PS sessions)
-$PSWorkspace = Import-PSWorkspace -Path "~\.env" -Initial @{ CWD = "~" }
+$PSWorkspace = Import-PSWorkspace -Path "~\.env" -Default @{ CWD = "~" }
 
 # current working directory
 if (!$env:ParentPS) {
   cd $PSWorkspace.CWD
 }
 
-# check changes in %PATH%
+# backup any changes made to %PATH%
 if (!$env:ParentPS) {
   Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
 }
 
 # expose this directory
 $ProfileDirectory = Split-Path $PROFILE
-
-# chocolatey
-& {
-  $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-  if (Test-Path $ChocolateyProfile) {
-    Import-Module "$ChocolateyProfile"
-  }
-}
 
 # PowerShell prompt
 $PSCompactPrompt = $false
@@ -45,30 +40,28 @@ function Prompt {
   }
 }
 
-# conda
-function Set-CondaEnvironment {
-  $condaEnvName = $args[0]
-  cmd /C (
-    "C:\ProgramData\Anaconda3\Scripts\activate.bat $condaEnvName && " +
-    "set ParentPS=true && " +
-    "set ParentPSPromptName=$condaEnvName && " +
-    "powershell -NoExit -NoLogo"
-  )
+# Third-party Modules
+###############################################################################
+
+# chocolatey
+& {
+  $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+  if (Test-Path $ChocolateyProfile) {
+    Import-Module "$ChocolateyProfile"
+  }
 }
 
-Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
-Set-Alias conda-activate Set-CondaEnvironment
-
-# miscellaneous
-function Get-RandomString($Length) {
-  # all printable ascii characters: from char 33 (!) to char 126 (~)
-  return -join ((33..126) | Get-Random -Count Length | % { [char]$_ })
-}
+# Aliases
+###############################################################################
 
 # editors
 Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
 Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
 Set-Alias vim "C:\Program Files (x86)\Vim\vim80"
+
+# conda
+Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
+Set-Alias conda-activate Set-CondaEnvironment
 
 # dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
@@ -76,6 +69,10 @@ Set-Alias codemerge "C:\Program Files\Devart\Code Compare\CodeMerge.exe"
 
 # hashicorp
 Set-Alias terraform "C:\tools\terraform\terraform.exe"
+
+# ssh
+Set-Alias ssh "C:\Program Files\Git\usr\bin\ssh.exe"
+Set-Alias ssh-keygen "C:\Program Files\Git\usr\bin\ssh-keygen.exe"
 
 # win utils
 Set-Alias totalcmd "C:\tools\totalcmd\TOTALCMD64.EXE"

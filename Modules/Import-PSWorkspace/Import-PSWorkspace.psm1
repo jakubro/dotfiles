@@ -4,15 +4,15 @@ function Import-PSWorkspace {
   param(
     [Parameter(Mandatory=$true)]
     [string]    $Path,
-    [hashtable] $Initial
+    [hashtable] $Default
   )
-  if ($Initial -eq $null) {
-    $Initial = @{}
+  if ($Default -eq $null) {
+    $Default = @{}
   }
-  $workspace = $Initial
+  $workspace = $Default
   if (Test-Path $Path) {
     $imported = Get-Content $Path | Out-String | ConvertFrom-StringData
-    $workspace = Merge-Hashtables -IgnoreNullOrWhiteSpace $Initial $imported
+    $workspace = Merge-Hashtables -IgnoreNullOrWhiteSpace $Default $imported
   }
   return $workspace
 }
