@@ -70,6 +70,9 @@ Set-Alias codemerge "C:\Program Files\Devart\Code Compare\CodeMerge.exe"
 # hashicorp
 Set-Alias terraform "C:\tools\terraform\terraform.exe"
 
+# aws
+Set-Alias eb "$env:APPDATA\Python\Python36\Scripts\eb.exe"
+
 # ssh
 Set-Alias ssh "C:\Program Files\Git\usr\bin\ssh.exe"
 Set-Alias ssh-keygen "C:\Program Files\Git\usr\bin\ssh-keygen.exe"
