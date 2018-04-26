@@ -1,4 +1,4 @@
-#Requires -Modules TryCreate-EventLog, Import-PSWorkspace
+#Requires -Modules TryCreate-EventLog, Import-DotEnv
 Set-StrictMode -Version 2.0
 
 $logName = "@jakubro/dotfiles"
@@ -8,7 +8,7 @@ TryCreate-EventLog -LogName $logName -Source $logSource
 # load backup configuration from workspace (this script is running
 # in "-NoProfile" environment, so we have to load this manually)
 
-$PSWorkspace = Import-PSWorkspace -Path "~\.env" -Default @{
+Import-DotEnv -Path "~\.env" -Default @{
   BACKUP_SOURCE = $null;
   BACKUP_DESTINATION = $null;
 }
@@ -17,15 +17,15 @@ $PSWorkspace = Import-PSWorkspace -Path "~\.env" -Default @{
 
 $timestamp = [DateTime]::UtcNow.ToString("yyyyMMddHHmmssZ")
 
-if ([string]::IsNullOrWhiteSpace($PSWorkspace.BACKUP_SOURCE) -or
-    [string]::IsNullOrWhiteSpace($PSWorkspace.BACKUP_DESTINATION)) {
+if ([string]::IsNullOrWhiteSpace($env:BACKUP_SOURCE) -or
+    [string]::IsNullOrWhiteSpace($env:BACKUP_DESTINATION)) {
   Write-EventLog -LogName $logName -Source $logSource -EventID 2001 -EntryType Error `
     -Message "One of specified directories does not exist."
   return
 }
 
-$source = $PSWorkspace.BACKUP_SOURCE.Trim("\", "/") # trailing slash causes arguments to be interpreted incorrectly
-$destination = Join-Path $PSWorkspace.BACKUP_DESTINATION "backup_$timestamp.rar"
+$source = $env:BACKUP_SOURCE.Trim("\", "/") # trailing slash causes arguments to be interpreted incorrectly
+$destination = Join-Path $env.BACKUP_DESTINATION "backup_$timestamp.rar"
 
 Write-EventLog -LogName $logName -Source $logSource -EventID 1000 -EntryType Information -Message "Backup started."
 

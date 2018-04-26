@@ -1,15 +1,15 @@
-#Requires -Modules Import-PSWorkspace, Merge-Hashtables, Checkpoint-EnvironmentVariable, Set-CondaEnvironment
+#Requires -Modules Import-DotEnv, Merge-Hashtables, Checkpoint-EnvironmentVariable, Set-CondaEnvironment
 Set-StrictMode -Version 2.0
 
 # Boostrap
 ###############################################################################
 
 # load workspace (i.e. settings shared across multiple PS sessions)
-$PSWorkspace = Import-PSWorkspace -Path "~\.env" -Default @{ CWD = "~" }
+Import-DotEnv -Path "~\.env" -Default @{ INITIAL_CWD = "~" }
 
 # current working directory
 if (!$env:ParentPS) {
-  cd $PSWorkspace.CWD
+  cd $env:INITIAL_CWD
 }
 
 # backup any changes made to %PATH%
