@@ -57,7 +57,7 @@ function Prompt {
 # editors
 Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
 Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
-Set-Alias vim "C:\Program Files (x86)\Vim\vim80"
+Set-Alias vim "C:\Program Files (x86)\Vim\vim80\vim.exe"
 
 # conda
 Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
