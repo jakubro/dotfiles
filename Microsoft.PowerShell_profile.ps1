@@ -21,23 +21,51 @@ if (!$env:ParentPS) {
 $ProfileDirectory = Split-Path $PROFILE
 
 # PowerShell prompt
-$PSCompactPrompt = $false
+
+$PSPromptSettings = @{
+  Compact = $false;
+  FullPath = $false;
+}
+
 function Prompt {
-  if ($PSCompactPrompt) {
-    return "$ "
-  } else {
+  if (!$PSPromptSettings.Compact) {
     $date = Get-Date -Format "HH:mm:ss"
-    $location = $PWD.ProviderPath
-    $promptName = ""
-    if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
-      $name = $env:ParentPSPromptName.Trim()
-      $promptName = "($name) "
+
+    if ($PSPromptSettings.FullPath) {
+      $location = $PWD.ProviderPath
+    } else {
+      $location = Split-Path -Leaf $PWD.ProviderPath
     }
-    Write-Host -NoNewline -ForegroundColor White "$date "
-    Write-Host -NoNewline -ForegroundColor White $promptName
+
+    $promptName = $null
+    if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
+      $promptName = $env:ParentPSPromptName.Trim()
+    }
+
+    # $headName = $null
+    # $headName = git rev-parse --abbrev-ref HEAD
+    # if ($headName -eq $null) {
+    #   $headName = git symbolic-ref --short HEAD
+    # }
+
+    Write-Host -NoNewline -ForegroundColor White $date
+
+    if (!($promptName -eq $null)) {
+      Write-Host -NoNewline -ForegroundColor White " "
+      Write-Host -NoNewline -ForegroundColor White "($promptName)"
+    }
+
+    Write-Host -NoNewline -ForegroundColor White " "
     Write-Host -NoNewline -ForegroundColor White $location
-    return "> "
+
+    # if ($headName -eq $null) {
+    #   Write-Host -NoNewline -ForegroundColor White " "
+    #   Write-Host -NoNewline -ForegroundColor White "($headName)"
+    # }
+
+    Write-Host -NoNewline -ForegroundColor White " "
   }
+  return "$ "
 }
 
 # Third-party Modules
