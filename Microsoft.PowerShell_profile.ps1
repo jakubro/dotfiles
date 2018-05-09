@@ -66,6 +66,7 @@ Set-Alias conda-activate Set-CondaEnvironment
 # dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
 Set-Alias codemerge "C:\Program Files\Devart\Code Compare\CodeMerge.exe"
+Set-Alias msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe"
 
 # hashicorp
 Set-Alias terraform "C:\tools\terraform\terraform.exe"
