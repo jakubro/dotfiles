@@ -52,40 +52,87 @@ function Prompt {
     }
   }
 
-  function _getGitInfo {
-    $isInsideWorkTree = git rev-parse --is-inside-work-tree
-    if ($isInsideWorkTree) {
-      $branch = git symbolic-ref --short HEAD 2> $null
-      if ($LASTEXITCODE) {
-        # not on a branch
-        $commitHash = git rev-parse --short HEAD
-        $branch = ":" + $commitHash
-      }
+  function _getGitStatus {
+    $status = git status --porcelain --branch 2> $null
+    if ($LASTEXITCODE) {
+      return $null  # not inside a git work tree
     }
-    return $isInsideWorkTree, $branch
+
+    # todo: include worktree stats (files staged/added/removed/conflicted)
+
+    $result = @{
+      Local = $null;
+      Remote = $null;
+      Ahead = 0;
+      Behind = 0;
+    }
+
+    $status = $status -split [Environment]::NewLine
+
+    if ($status[0] -match "## No commits yet on (.*)") {
+      $result.Local = $Matches[1]
+      return $result
+    }
+
+    if ($status[0] -match "## ([^.]+)(?:\.{3}([^.]+)(?: \[([^\]]+)\]))?") {
+      $result.Local = $Matches[1]
+
+      if ($result.Local -eq "HEAD (no branch)") {
+        $hash = git rev-parse --short HEAD
+        $result.Local = ":$hash"
+      }
+      if ($Matches.Count -gt 2) {
+        $result.Remote = $Matches[2]
+
+        $Matches[3] -split ", " | % {
+          $direction, $count = $_ -split " "
+          switch ($direction) {
+            "ahead" { $result.Ahead = $count }
+            "behind" { $result.Behind = $count }
+          }
+        }
+      }
+
+      return $result
+    }
+
+    return $null
   }
 
   $date = _getDate
-  Write-Host -NoNewline -ForegroundColor White $date
+  Write-Host -NoNewline $date
 
-  $promptName = _getPromptName
-  if (!($promptName -eq $null)) {
-    Write-Host -NoNewline -ForegroundColor White " "
-    Write-Host -NoNewline -ForegroundColor White "($promptName)"
+  $name = _getPromptName
+  if (!($name -eq $null)) {
+    Write-Host -NoNewline " ($name)"
   }
 
   $location = _getLocation
-  Write-Host -NoNewline -ForegroundColor White " "
-  Write-Host -NoNewline -ForegroundColor White $location
+  Write-Host -NoNewline " $location"
 
-  $isInsideWorkTree, $branch = _getGitInfo
-  if ($isInsideWorkTree) {
-    Write-Host -NoNewline -ForegroundColor White " "
-    Write-Host -NoNewline -ForegroundColor Gray "[$branch]"
+  $repo = _getGitStatus
+  if ($repo) {
+    $gstr = "["
+    $gstr += $repo.Local
+    if (-not $repo.Remote) {
+      $gstr += " ?"
+    } else {
+      $gstr += " "
+      if ($repo.Ahead) {
+        $gstr += $repo.Ahead
+        $gstr += [char]::ConvertFromUtf32(0x2192)  # rightwards arrow
+      }
+      if ($repo.Behind) {
+        $gstr += [char]::ConvertFromUtf32(0x2190)  # leftwards arrow
+        $gstr += $repo.Behind
+      }
+    }
+    $gstr += "]"
+
+    Write-Host -NoNewline -ForegroundColor Gray " $gstr"
   }
 
-  Write-Host -NoNewline -ForegroundColor White " "
-  return "$ "
+  return " $ "
 }
 
 # Third-party Modules
