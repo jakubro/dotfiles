@@ -28,43 +28,63 @@ $PSPromptSettings = @{
 }
 
 function Prompt {
-  if (!$PSPromptSettings.Compact) {
-    $date = Get-Date -Format "HH:mm:ss"
+  if ($PSPromptSettings.Compact) {
+    return "$ "
+  }
 
+  function _getDate {
+    return Get-Date -Format "HH:mm:ss"
+  }
+
+
+  function _getLocation {
     if ($PSPromptSettings.FullPath) {
-      $location = $PWD.ProviderPath
+      return $PWD.ProviderPath
     } else {
-      $location = Split-Path -Leaf $PWD.ProviderPath
+      return Split-Path -Leaf $PWD.ProviderPath
     }
+  }
 
+  function _getPromptName {
     $promptName = $null
     if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
       $promptName = $env:ParentPSPromptName.Trim()
     }
-
-    # $headName = $null
-    # $headName = git rev-parse --abbrev-ref HEAD
-    # if ($headName -eq $null) {
-    #   $headName = git symbolic-ref --short HEAD
-    # }
-
-    Write-Host -NoNewline -ForegroundColor White $date
-
-    if (!($promptName -eq $null)) {
-      Write-Host -NoNewline -ForegroundColor White " "
-      Write-Host -NoNewline -ForegroundColor White "($promptName)"
-    }
-
-    Write-Host -NoNewline -ForegroundColor White " "
-    Write-Host -NoNewline -ForegroundColor White $location
-
-    # if ($headName -eq $null) {
-    #   Write-Host -NoNewline -ForegroundColor White " "
-    #   Write-Host -NoNewline -ForegroundColor White "($headName)"
-    # }
-
-    Write-Host -NoNewline -ForegroundColor White " "
   }
+
+  function _getGitInfo {
+    $isInsideWorkTree = git rev-parse --is-inside-work-tree
+    if ($isInsideWorkTree) {
+      $branch = git symbolic-ref --short HEAD 2> $null
+      if ($LASTEXITCODE) {
+        # not on a branch
+        $commitHash = git rev-parse --short HEAD
+        $branch = ":" + $commitHash
+      }
+    }
+    return $isInsideWorkTree, $branch
+  }
+
+  $date = _getDate
+  Write-Host -NoNewline -ForegroundColor White $date
+
+  $promptName = _getPromptName
+  if (!($promptName -eq $null)) {
+    Write-Host -NoNewline -ForegroundColor White " "
+    Write-Host -NoNewline -ForegroundColor White "($promptName)"
+  }
+
+  $location = _getLocation
+  Write-Host -NoNewline -ForegroundColor White " "
+  Write-Host -NoNewline -ForegroundColor White $location
+
+  $isInsideWorkTree, $branch = _getGitInfo
+  if ($isInsideWorkTree) {
+    Write-Host -NoNewline -ForegroundColor White " "
+    Write-Host -NoNewline -ForegroundColor Gray "[$branch]"
+  }
+
+  Write-Host -NoNewline -ForegroundColor White " "
   return "$ "
 }
 
