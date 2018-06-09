@@ -13,17 +13,15 @@ function Prompt {
   $date = Get-PromptDate
   Write-Host -NoNewline $date
 
-  $name = Get-PromptName
-  if (!($name -eq $null)) {
+  if ($name = Get-PromptName) {
     Write-Host -NoNewline " ($name)"
   }
 
   $location = Get-PromptLocation
   Write-Host -NoNewline " $location"
 
-  $status = Get-PromptGitStatus
-  if ($status) {
-    Write-Host -NoNewline -ForegroundColor Gray " [$status]"
+  if ($status = Get-PromptGitStatus) {
+    Write-Host -NoNewline -ForegroundColor $status.Color " [$($status.String))]"
   }
 
   return " $ "
@@ -50,27 +48,38 @@ function Get-PromptName {
 }
 
 function Get-PromptGitStatus {
-  $repo = Get-GitStatus
-  if (!$repo) {
+  $status = Get-GitStatus
+  if (!$status) {
     return $null
   }
 
-  $str = $repo.Local + " "
-
-  if ($repo.Remote) {
-    if ($repo.Ahead) {
-      $str += $repo.Ahead
-      $str += [char]::ConvertFromUtf32(0x2192)  # rightwards arrow
-    }
-    if ($repo.Behind) {
-      $str += [char]::ConvertFromUtf32(0x2190)  # leftwards arrow
-      $str += $repo.Behind
-    }
-  } else {
-    $str += "?"
+  $result = @{
+    String = "";
+    Color = $null;
   }
 
-  return $str
+  $result.String = $status.Local + " "
+
+  if ($status.Remote) {
+    if ($status.Ahead) {
+      $result.String += $status.Ahead
+      $result.String += [char]::ConvertFromUtf32(0x2192)  # rightwards arrow
+    }
+    if ($status.Behind) {
+      $result.String += [char]::ConvertFromUtf32(0x2190)  # leftwards arrow
+      $result.String += $status.Behind
+    }
+  } else {
+    $result.String += "?"
+  }
+
+  if ($status.Modified) {
+    $result.Color = "Red"
+  } else {
+    $result.Color = "Gray"
+  }
+
+  return $result
 }
 
 

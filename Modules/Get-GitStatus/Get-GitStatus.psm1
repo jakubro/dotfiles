@@ -8,12 +8,12 @@ function Get-GitStatus {
 
   $status = $status -split [Environment]::NewLine
 
-  $result = Get-BranchTrackingInfo $status[0]
-  foreach ($line in $status[1..($status.Length - 1)]) {
-    # todo: include worktree stats (files staged/added/removed/conflicted)
+  if ($result = Get-BranchTrackingInfo $status[0]) {
+    $result.Modified = $status.Length -gt 1
+    return $result
   }
 
-  return $result
+  return $null
 }
 
 function Get-BranchTrackingInfo($line) {
