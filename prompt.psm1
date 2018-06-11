@@ -21,7 +21,7 @@ function Prompt {
   Write-Host -NoNewline " $location"
 
   if ($status = Get-PromptGitStatus) {
-    Write-Host -NoNewline -ForegroundColor $status.Color " [$($status.String))]"
+    Write-Host -NoNewline -ForegroundColor $status.Color " [$($status.String)]"
   }
 
   return " $ "
@@ -53,33 +53,44 @@ function Get-PromptGitStatus {
     return $null
   }
 
-  $result = @{
-    String = "";
-    Color = $null;
+  return @{
+    String = Get-PromptGitStatusString $status;
+    Color = Get-PromptGitStatusColor $status;
+  }
+}
+
+function Get-PromptGitStatusString($status) {
+  $str = $status.Local
+
+  if (!$status.IsBranch) {
+     return ":" + $str
   }
 
-  $result.String = $status.Local + " "
-
-  if ($status.Remote) {
-    if ($status.Ahead) {
-      $result.String += $status.Ahead
-      $result.String += [char]::ConvertFromUtf32(0x2192)  # rightwards arrow
-    }
-    if ($status.Behind) {
-      $result.String += [char]::ConvertFromUtf32(0x2190)  # leftwards arrow
-      $result.String += $status.Behind
-    }
-  } else {
-    $result.String += "?"
+  if (!$status.Remote) {
+    return $str + " ?"
   }
 
+  if ($status.Ahead -or $status.Behind) {
+    $str += " "
+  }
+  if ($status.Ahead) {
+    $str += $status.Ahead
+    $str += [char]::ConvertFromUtf32(0x2192)  # rightwards arrow
+  }
+  if ($status.Behind) {
+    $str += [char]::ConvertFromUtf32(0x2190)  # leftwards arrow
+    $str += $status.Behind
+  }
+
+  return $str
+}
+
+function Get-PromptGitStatusColor($status) {
   if ($status.Modified) {
-    $result.Color = "Red"
+    return "Red"
   } else {
-    $result.Color = "Gray"
+    return "Gray"
   }
-
-  return $result
 }
 
 
