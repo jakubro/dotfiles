@@ -3,7 +3,7 @@ try {
   mkdir $temp
 
   git clone https://github.com/jakubro/dotfiles $temp
-  mv -Overwrite $temp\* (Split-Path $PROFILE)
+  mv -Force $temp\* (Split-Path $PROFILE)
 } finally {
   if (Test-Path $temp) {
     rm -Recurse -Force $temp
