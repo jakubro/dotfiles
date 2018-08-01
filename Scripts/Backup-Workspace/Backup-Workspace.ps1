@@ -25,7 +25,7 @@ if ([string]::IsNullOrWhiteSpace($env:BACKUP_SOURCE) -or
 }
 
 $source = $env:BACKUP_SOURCE.Trim("\", "/") # trailing slash causes arguments to be interpreted incorrectly
-$destination = Join-Path $env.BACKUP_DESTINATION "backup_$timestamp.rar"
+$destination = Join-Path $env:BACKUP_DESTINATION "backup_$timestamp.rar"
 
 Write-EventLog -LogName $logName -Source $logSource -EventID 1000 -EntryType Information -Message "Backup started."
 
