@@ -1,10 +1,10 @@
 <scheme name="ReSharper-like IntelliJ" version="142" parent_scheme="Default">
   <option name="FONT_SCALE" value="1.0" />
   <metaInfo>
-    <property name="created">2018-08-02T22:55:15</property>
+    <property name="created">2018-08-02T22:59:59</property>
     <property name="ide">idea</property>
     <property name="ideVersion">2018.1.4.0.0</property>
-    <property name="modified">2018-08-02T22:55:29</property>
+    <property name="modified">2018-08-02T23:00:14</property>
     <property name="originalScheme">ReSharper-like IntelliJ</property>
   </metaInfo>
   <option name="LINE_SPACING" value="1.0" />
@@ -412,8 +412,7 @@
     </option>
     <option name="IDENTIFIER_UNDER_CARET_ATTRIBUTES">
       <value>
-        <option name="BACKGROUND" value="363636" />
-        <option name="EFFECT_COLOR" value="48731a" />
+        <option name="EFFECT_COLOR" value="3e6273" />
       </value>
     </option>
     <option name="IGNORE.HEADER">
@@ -621,8 +620,7 @@
     </option>
     <option name="WRITE_IDENTIFIER_UNDER_CARET_ATTRIBUTES">
       <value>
-        <option name="BACKGROUND" value="363636" />
-        <option name="EFFECT_COLOR" value="48731a" />
+        <option name="EFFECT_COLOR" value="3e6273" />
       </value>
     </option>
     <option name="WRITE_SEARCH_RESULT_ATTRIBUTES">
