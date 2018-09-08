@@ -1,21 +1,24 @@
 <scheme name="ReSharper-like IntelliJ" version="142" parent_scheme="Default">
   <option name="FONT_SCALE" value="1.0" />
   <metaInfo>
-    <property name="created">2018-08-02T22:59:59</property>
+    <property name="created">2018-08-31T20:06:33</property>
     <property name="ide">idea</property>
-    <property name="ideVersion">2018.1.4.0.0</property>
-    <property name="modified">2018-08-02T23:00:14</property>
+    <property name="ideVersion">2018.2.2.0.0</property>
+    <property name="modified">2018-08-31T20:06:59</property>
     <property name="originalScheme">ReSharper-like IntelliJ</property>
   </metaInfo>
   <option name="LINE_SPACING" value="1.0" />
-  <option name="EDITOR_FONT_SIZE" value="11" />
+  <option name="EDITOR_FONT_SIZE" value="10" />
   <option name="EDITOR_FONT_NAME" value="Consolas" />
   <option name="EDITOR_LIGATURES" value="true" />
   <colors>
-    <option name="ADDED_LINES_COLOR" value="295622" />
+    <option name="ADDED_LINES_COLOR" value="736a26" />
+    <option name="ANNOTATIONS_COLOR" value="0" />
+    <option name="BORDER_LINES_COLOR" value="" />
     <option name="CARET_COLOR" value="bbbbbb" />
-    <option name="CARET_ROW_COLOR" value="f0f0f" />
+    <option name="CARET_ROW_COLOR" value="141414" />
     <option name="CONSOLE_BACKGROUND_KEY" value="1e1e1e" />
+    <option name="DELETED_LINES_COLOR" value="736a26" />
     <option name="FILESTATUS_ADDED" value="629755" />
     <option name="FILESTATUS_DELETED" value="6c6c6c" />
     <option name="FILESTATUS_IDEA_FILESTATUS_DELETED_FROM_FILE_SYSTEM" value="6c6c6c" />
@@ -36,7 +39,7 @@
     <option name="INDENT_GUIDE" value="2d4561" />
     <option name="LINE_NUMBERS_COLOR" value="2b91ab" />
     <option name="METHOD_SEPARATORS_COLOR" value="404040" />
-    <option name="MODIFIED_LINES_COLOR" value="415f69" />
+    <option name="MODIFIED_LINES_COLOR" value="736a26" />
     <option name="RECURSIVE_CALL_ATTRIBUTES" value="574300" />
     <option name="RIGHT_MARGIN_COLOR" value="323232" />
     <option name="SELECTED_INDENT_GUIDE" value="dcdcdc" />
@@ -46,6 +49,7 @@
     <option name="TEARLINE_COLOR" value="787b80" />
     <option name="VISUAL_INDENT_GUIDE" value="323232" />
     <option name="WHITESPACES" value="505050" />
+    <option name="WHITESPACES_MODIFIED_LINES_COLOR" value="736927" />
   </colors>
   <attributes>
     <option name="ABSTRACT_CLASS_NAME_ATTRIBUTES">
@@ -74,7 +78,7 @@
     </option>
     <option name="BREAKPOINT_ATTRIBUTES">
       <value>
-        <option name="BACKGROUND" value="3a2323" />
+        <option name="BACKGROUND" value="6e2525" />
       </value>
     </option>
     <option name="Block comment">
@@ -378,9 +382,19 @@
         <option name="EFFECT_TYPE" value="4" />
       </value>
     </option>
+    <option name="EVALUATED_EXPRESSION_ATTRIBUTES">
+      <value>
+        <option name="FOREGROUND" value="0" />
+        <option name="BACKGROUND" value="bfc26d" />
+      </value>
+    </option>
+    <option name="EVALUATED_EXPRESSION_EXECUTION_LINE_ATTRIBUTES">
+      <value />
+    </option>
     <option name="EXECUTIONPOINT_ATTRIBUTES">
       <value>
-        <option name="BACKGROUND" value="2d6099" />
+        <option name="BACKGROUND" value="6e2525" />
+        <option name="EFFECT_COLOR" value="bfc26d" />
       </value>
     </option>
     <option name="FOLDED_TEXT_ATTRIBUTES">
@@ -509,12 +523,17 @@
     </option>
     <option name="MATCHED_BRACE_ATTRIBUTES">
       <value>
-        <option name="FOREGROUND" value="e4580" />
+        <option name="EFFECT_COLOR" value="787b80" />
       </value>
     </option>
     <option name="METHOD_DECLARATION_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="dcdcdc" />
+      </value>
+    </option>
+    <option name="NOT_TOP_FRAME_ATTRIBUTES">
+      <value>
+        <option name="BACKGROUND" value="8a5271" />
       </value>
     </option>
     <option name="NOT_USED_ELEMENT_ATTRIBUTES">

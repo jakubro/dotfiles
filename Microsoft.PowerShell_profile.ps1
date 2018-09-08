@@ -24,6 +24,8 @@ $ProfileDirectory = Split-Path $PROFILE
 Import-Module "$ProfileDirectory\prompt.psm1"
 Import-Module "$ProfileDirectory\aliases.psm1"
 
+# python
+$env:Path= "$env:APPDATA\Python\Python36\site-packages\;$env:Path"
 
 # Third-party Modules
 ###############################################################################
