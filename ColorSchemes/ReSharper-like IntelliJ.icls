@@ -1,10 +1,10 @@
 <scheme name="ReSharper-like IntelliJ" version="142" parent_scheme="Default">
   <option name="FONT_SCALE" value="1.0" />
   <metaInfo>
-    <property name="created">2018-08-31T20:06:33</property>
+    <property name="created">2018-10-07T15:30:28</property>
     <property name="ide">idea</property>
-    <property name="ideVersion">2018.2.2.0.0</property>
-    <property name="modified">2018-08-31T20:06:59</property>
+    <property name="ideVersion">2018.2.4.0.0</property>
+    <property name="modified">2018-10-07T15:30:50</property>
     <property name="originalScheme">ReSharper-like IntelliJ</property>
   </metaInfo>
   <option name="LINE_SPACING" value="1.0" />
