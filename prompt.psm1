@@ -14,7 +14,7 @@ function Prompt {
   Write-Host -NoNewline $date
 
   if ($name = Get-PromptName) {
-    Write-Host -NoNewline " ($name)"
+    Write-Host -NoNewline -ForegroundColor Green " ($name)"
   }
 
   $location = Get-PromptLocation
