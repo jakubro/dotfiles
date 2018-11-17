@@ -1,8 +1,13 @@
-#Requires -Modules Import-DotEnv, Checkpoint-EnvironmentVariable
+#Requires -Modules Checkpoint-EnvironmentVariable, Import-DotEnv, Set-CondaEnvironment
 Set-StrictMode -Version 2.0
 
 # Bootstrap
 ###############################################################################
+
+# backup any changes made to %PATH%
+if (!$env:ParentPS) {
+  Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
+}
 
 # load workspace (i.e. settings shared across multiple PS sessions)
 Import-DotEnv -Path "~\.env" -Default @{ INITIAL_CWD = "~" }
@@ -10,11 +15,6 @@ Import-DotEnv -Path "~\.env" -Default @{ INITIAL_CWD = "~" }
 # current working directory
 if (!$env:ParentPS) {
   cd $env:INITIAL_CWD
-}
-
-# backup any changes made to %PATH%
-if (!$env:ParentPS) {
-  Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
 }
 
 # expose this directory
@@ -25,7 +25,19 @@ Import-Module "$ProfileDirectory\prompt.psm1"
 Import-Module "$ProfileDirectory\aliases.psm1"
 
 # python
-$env:Path= "$env:APPDATA\Python\Python36\site-packages\;$env:Path"
+$env:Path = "$env:APPDATA\Python\Python36\site-packages\;$env:Path"
+
+# activate conda environment
+#
+# todo: disabled, b/c Set-CondaEnvironment spawns new subshell, which does not work here
+#
+#  Obvious solution is to rework Set-CondaEnvironment to not create subshell, but that would
+#  (probably?) mean to completely rework '\Anaconda3\Scripts\activate.bat' into PS.
+#  Hint - virtualenv (or venv?) has something similar in 'activate.ps1'.
+#
+# if (![string]::IsNullOrWhiteSpace($env:INITIAL_CONDA_ENV)) {
+#   Set-CondaEnvironment $env:INITIAL_CONDA_ENV
+# }
 
 # Third-party Modules
 ###############################################################################
