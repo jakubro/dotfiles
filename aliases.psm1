@@ -9,7 +9,7 @@ Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
 Set-Alias vim "C:\Program Files (x86)\Vim\vim80\vim.exe"
 
 # conda
-Set-Alias conda "C:\ProgramData\Anaconda3\Scripts\conda.exe"
+Set-Alias conda "C:\ProgramData\Miniconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
 
 # dev
