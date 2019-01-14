@@ -20,9 +20,6 @@ Set-Alias msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community
 # hashicorp
 Set-Alias terraform "C:\tools\terraform\terraform.exe"
 
-# aws
-Set-Alias eb "$env:APPDATA\Python\Python36\Scripts\eb.exe"
-
 # ssh
 Set-Alias ssh "C:\Program Files\Git\usr\bin\ssh.exe"
 Set-Alias ssh-keygen "C:\Program Files\Git\usr\bin\ssh-keygen.exe"
