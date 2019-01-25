@@ -27,6 +27,7 @@ Set-Alias ssh-keygen "C:\Program Files\Git\usr\bin\ssh-keygen.exe"
 # win utils
 Set-Alias totalcmd "C:\tools\totalcmd\TOTALCMD64.EXE"
 Set-Alias winrar "C:\Program Files\WinRAR\WinRAR.exe"
+Set-Alias appcmd "C:\Windows\System32\inetsrv\appcmd.exe"
 
 # misc
 Set-Alias de4dot "C:\tools\de4dot\de4dot-x64.exe"
