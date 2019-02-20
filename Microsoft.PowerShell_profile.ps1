@@ -39,6 +39,10 @@ $env:Path = "$env:APPDATA\Python\Python37\Scripts\;$env:APPDATA\Python\Python37\
 #   Set-CondaEnvironment $env:INITIAL_CONDA_ENV
 # }
 
+# android
+$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
+$env:ANDROID_SDK = "$env:LOCALAPPDATA\Android\Sdk"
+
 # Third-party Modules
 ###############################################################################
 
