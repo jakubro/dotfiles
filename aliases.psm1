@@ -30,6 +30,7 @@ Set-Alias winrar "C:\Program Files\WinRAR\WinRAR.exe"
 Set-Alias appcmd "C:\Windows\System32\inetsrv\appcmd.exe"
 
 # misc
+Set-Alias adb "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe"
 Set-Alias de4dot "C:\tools\de4dot\de4dot-x64.exe"
 Set-Alias openssl "C:\tools\OpenSSL-Win32\bin\openssl.exe"
 Set-Alias wireshark "C:\Program Files\Wireshark\Wireshark.exe"
