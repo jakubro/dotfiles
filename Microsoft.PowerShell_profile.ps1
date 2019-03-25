@@ -4,30 +4,30 @@ Set-StrictMode -Version 2.0
 # Bootstrap
 ###############################################################################
 
-# backup any changes made to %PATH%
+# Backup any changes made to %PATH%.
 if (!$env:ParentPS) {
   Checkpoint-EnvironmentVariable -Name "PATH" -File "~\.path.txt"
 }
 
-# load workspace (i.e. settings shared across multiple PS sessions)
+# Load workspace, i.e. settings shared across multiple PS sessions.
 Import-DotEnv -Path "~\.env" -Default @{ INITIAL_CWD = "~" }
 
-# current working directory
+# Current working directory.
 if (!$env:ParentPS) {
   cd $env:INITIAL_CWD
 }
 
-# expose this directory
+# Expose this directory.
 $ProfileDirectory = Split-Path $PROFILE
 
-# load customized prompt and set aliases
+# Load customized prompt and set aliases.
 Import-Module "$ProfileDirectory\prompt.psm1"
 Import-Module "$ProfileDirectory\aliases.psm1"
 
-# python
+# Python.
 $env:Path = "$env:APPDATA\Python\Python37\Scripts\;$env:APPDATA\Python\Python37\site-packages\;$env:Path"
 
-# activate conda environment
+# Activate conda environment.
 #
 # todo: disabled, b/c Set-CondaEnvironment spawns new subshell, which does not work here
 #
@@ -39,14 +39,14 @@ $env:Path = "$env:APPDATA\Python\Python37\Scripts\;$env:APPDATA\Python\Python37\
 #   Set-CondaEnvironment $env:INITIAL_CONDA_ENV
 # }
 
-# android
+# Android.
 $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
 $env:ANDROID_SDK = "$env:LOCALAPPDATA\Android\Sdk"
 
 # Third-party Modules
 ###############################################################################
 
-# chocolatey
+# Chocolatey.
 & {
   $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
   if (Test-Path $ChocolateyProfile) {
