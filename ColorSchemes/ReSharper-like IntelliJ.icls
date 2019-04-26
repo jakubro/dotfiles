@@ -1,14 +1,14 @@
 <scheme name="ReSharper-like IntelliJ" version="142" parent_scheme="Default">
   <option name="FONT_SCALE" value="1.0" />
   <metaInfo>
-    <property name="created">2018-10-07T15:30:28</property>
+    <property name="created">2019-04-05T11:54:31</property>
     <property name="ide">idea</property>
-    <property name="ideVersion">2018.2.4.0.0</property>
-    <property name="modified">2018-10-07T15:30:50</property>
+    <property name="ideVersion">2019.1.0.0</property>
+    <property name="modified">2019-04-05T11:54:47</property>
     <property name="originalScheme">ReSharper-like IntelliJ</property>
   </metaInfo>
   <option name="LINE_SPACING" value="1.0" />
-  <option name="EDITOR_FONT_SIZE" value="10" />
+  <option name="EDITOR_FONT_SIZE" value="12" />
   <option name="EDITOR_FONT_NAME" value="Consolas" />
   <option name="EDITOR_LIGATURES" value="true" />
   <colors>
@@ -417,6 +417,7 @@
         <option name="EFFECT_TYPE" value="1" />
       </value>
     </option>
+    <option name="GROOVY_KEYWORD" baseAttributes="JAVA_KEYWORD" />
     <option name="HYPERLINK_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="287bde" />
@@ -497,6 +498,11 @@
     <option name="JS.REGEXP">
       <value>
         <option name="FOREGROUND" value="eeba3d" />
+      </value>
+    </option>
+    <option name="JUPYTER_SELECTED_CELL">
+      <value>
+        <option name="BACKGROUND" value="102c24" />
       </value>
     </option>
     <option name="LOG_ERROR_OUTPUT">
@@ -580,12 +586,8 @@
         <option name="ERROR_STRIPE_COLOR" value="113d6f" />
       </value>
     </option>
-    <option name="STATIC_FIELD_ATTRIBUTES">
-      <value>
-        <option name="FOREGROUND" value="c8c8c8" />
-        <option name="FONT_TYPE" value="2" />
-      </value>
-    </option>
+    <option name="STATIC_FIELD_ATTRIBUTES" baseAttributes="DEFAULT_STATIC_FIELD" />
+    <option name="STATIC_FINAL_FIELD_ATTRIBUTES" baseAttributes="STATIC_FIELD_ATTRIBUTES" />
     <option name="STATIC_METHOD_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="9393cc" />
@@ -630,6 +632,7 @@
         <option name="FOREGROUND" value="d1243b" />
       </value>
     </option>
+    <option name="Unresolved reference access" baseAttributes="DEFAULT_IDENTIFIER" />
     <option name="WARNING_ATTRIBUTES">
       <value>
         <option name="EFFECT_COLOR" value="cccc00" />
