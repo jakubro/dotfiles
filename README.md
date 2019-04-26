@@ -2,19 +2,14 @@
 
 Preferences and settings for my toolbox.
 
-## Shell prompt
+* Code Style - Code styles IntelliJ IDEA
+* Color Schemes - Color schemes for IntelliJ IDEA with previews
+* Modules - Powershell modules
+* Scripts - Some tooling
+* Templates - Repetitive boilerplate for new projects
 
-### git status
+Prompt:
 
-![Shell prompt - git](https://github.com/jakubro/dotfiles/blob/master/Prompt%20-%20Preview%20git.png?raw=true)
-
-### Activated conda environment
-
-![Shell prompt - conda](https://github.com/jakubro/dotfiles/blob/master/Prompt%20-%20Preview%20conda.png?raw=true)
-
-## Color schemes
-
-### Dark ReSharper look for IntelliJ IDEA
-
-![ReSharper-like IntelliJ - Python](https://github.com/jakubro/dotfiles/blob/master/ColorSchemes/ReSharper-like%20IntelliJ%20-%20Preview%20Python.png?raw=true)
-![ReSharper-like IntelliJ - JSX](https://github.com/jakubro/dotfiles/blob/master/ColorSchemes/ReSharper-like%20IntelliJ%20-%20Preview%20JSX.png?raw=true)
+- Displays git status - working tree state, current branch and commits behind, ahead.
+- Displays currently activated Python virtual environment (venv or conda).
+- Automatically activates Python virtual environment (only venv) on entering a directory with a venv located in subdirectory `.venv`, and deactivates it on exiting this directory.
