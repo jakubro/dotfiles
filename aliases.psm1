@@ -1,4 +1,5 @@
 #Requires -Modules Set-CondaEnvironment
+Set-StrictMode -Version 2.0
 
 # sys
 Set-Alias which Get-Command

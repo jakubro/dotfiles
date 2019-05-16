@@ -20,28 +20,10 @@ if (!$env:ParentPS) {
 # Expose this directory.
 $ProfileDirectory = Split-Path $PROFILE
 
-# Load customized prompt and set aliases.
+# Load customized prompt, set aliases and other environment variables.
 Import-Module "$ProfileDirectory\prompt.psm1"
 Import-Module "$ProfileDirectory\aliases.psm1"
-
-# Python.
-$env:Path = "$env:APPDATA\Python\Python37\Scripts\;$env:APPDATA\Python\Python37\site-packages\;$env:Path"
-
-# Activate conda environment.
-#
-# todo: disabled, b/c Set-CondaEnvironment spawns new subshell, which does not work here
-#
-#  Obvious solution is to rework Set-CondaEnvironment to not create subshell, but that would
-#  (probably?) mean to completely rework '\Anaconda3\Scripts\activate.bat' into PS.
-#  Hint - virtualenv (or venv?) has something similar in 'activate.ps1'.
-#
-# if (![string]::IsNullOrWhiteSpace($env:INITIAL_CONDA_ENV)) {
-#   Set-CondaEnvironment $env:INITIAL_CONDA_ENV
-# }
-
-# Android.
-$env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
-$env:ANDROID_SDK = "$env:LOCALAPPDATA\Android\Sdk"
+Import-Module "$ProfileDirectory\env.psm1"
 
 # Third-party Modules
 ###############################################################################

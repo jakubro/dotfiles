@@ -7,7 +7,7 @@ $PSPromptSettings = @{
 
 function Prompt {
   Enter-PythonEnvironment
-  return Get-Prompt
+  return Get-Prompt -Settings $PSPromptSettings
 }
 
 Export-ModuleMember -Variable PSPromptSettings

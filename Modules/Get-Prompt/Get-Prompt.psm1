@@ -2,8 +2,8 @@
 
 Set-StrictMode -Version 2.0
 
-function Get-Prompt {
-  if ($PSPromptSettings.Compact) {
+function Get-Prompt($Settings) {
+  if ($Settings.Compact) {
     return "$ "
   }
 
@@ -29,7 +29,7 @@ function Get-PromptDate {
 }
 
 function Get-PromptLocation {
-  if ($PSPromptSettings.FullPath) {
+  if ($Settings.FullPath) {
     return $PWD.ProviderPath
   } else {
     return Split-Path -Leaf $PWD.ProviderPath
