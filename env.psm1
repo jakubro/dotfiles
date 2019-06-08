@@ -14,3 +14,6 @@ $env:Path = "$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\CU
 $env:Path = "$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.0\include;$env:Path"
 $env:Path = "$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.0\libnvvp;$env:Path"
 $env:Path = "C:\tools\cudnn-8.0-windows10-x64-v6.0\cuda\bin;$env:Path"
+
+# misc
+$env:Path = "C:\tools\ffmpeg\bin;$env:Path"
