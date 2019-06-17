@@ -6,7 +6,7 @@ Set-Alias which Get-Command
 Set-Alias grep sls
 
 # editors
-Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
+Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
 Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
 Set-Alias vim "C:\Program Files (x86)\Vim\vim80\vim.exe"
 
@@ -18,7 +18,7 @@ Set-Alias pip-add Invoke-PipInstall
 # dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
 Set-Alias codemerge "C:\Program Files\Devart\Code Compare\CodeMerge.exe"
-Set-Alias msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\MSBuild.exe"
+Set-Alias msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
 
 # hashicorp
 Set-Alias terraform "C:\tools\terraform\terraform.exe"
