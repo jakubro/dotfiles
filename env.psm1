@@ -17,3 +17,4 @@ $env:Path = "C:\tools\cudnn-8.0-windows10-x64-v6.0\cuda\bin;$env:Path"
 
 # misc
 $env:Path = "C:\tools\ffmpeg\bin;$env:Path"
+$env:OPENCV_DIR = "C:\tools\opencv-3.4.6\build\x64\vc15\"
