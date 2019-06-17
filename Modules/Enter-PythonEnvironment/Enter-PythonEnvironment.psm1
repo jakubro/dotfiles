@@ -22,7 +22,8 @@ function Enter-PythonEnvironment {
 }
 
 function Deactivate-PythonEnvironment($Path) {
-  if (!$Path.StartsWith($env:VirtualEnvRoot)) {
+  if (!$Path.StartsWith($env:VirtualEnvRoot) -or
+      !(Test-Path (Join-Path $env:VirtualEnvRoot '.venv'))) {
     deactivate
     $env:VirtualEnvRoot = $null
     $env:ParentPSPromptName = $null
