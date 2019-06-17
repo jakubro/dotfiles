@@ -1,8 +1,8 @@
-#Requires -Modules Checkpoint-EnvironmentVariable, Import-DotEnv, Set-CondaEnvironment
+#Requires -Modules Checkpoint-EnvironmentVariable, Get-DevToolsInfo, Import-DotEnv, Set-CondaEnvironment
 Set-StrictMode -Version 2.0
 
 # Bootstrap
-###############################################################################
+# -----------------------------------------------------------------------------------------------------------------
 
 # Backup any changes made to %PATH%.
 if (!$env:ParentPS) {
@@ -25,8 +25,12 @@ Import-Module "$ProfileDirectory\prompt.psm1"
 Import-Module "$ProfileDirectory\aliases.psm1"
 Import-Module "$ProfileDirectory\env.psm1"
 
+Write-Host
+Get-DevToolsInfo
+Write-Host
+
 # Third-party Modules
-###############################################################################
+# -----------------------------------------------------------------------------------------------------------------
 
 # Chocolatey.
 & {
