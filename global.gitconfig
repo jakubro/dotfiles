@@ -1,0 +1,23 @@
+[user]
+	name = Jakub Roman
+	email = jakub@jakubroman.sk
+[gc]
+	autoDetach = false
+[pull]
+	rebase = true
+[core]
+	autocrlf = false
+    safecrlf = true
+	excludesfile = C:\\Users\\jakub\\Documents\\WindowsPowerShell\\global.gitignore
+	editor = 'C:\\Program Files\\Sublime Text 3\\sublime_text.exe' -w
+[commit]
+	gpgSign = false
+[gui]
+	pruneduringfetch = true
+	encoding = UTF-8
+[smartgit "submodule"]
+	fetchalways = true
+	update = true
+	initializenew = true
+[push]
+	recurseSubmodules = check
