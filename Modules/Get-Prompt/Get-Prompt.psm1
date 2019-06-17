@@ -14,6 +14,8 @@ function Get-Prompt($Settings) {
     Write-Host -NoNewline -ForegroundColor Green " ($name)"
   }
 
+  Write-Host -NoNewline -ForegroundColor Yellow " ($(Get-AwsCliCurrentProfile))"
+
   $location = Get-PromptLocation
   Write-Host -NoNewline " $location"
 
@@ -87,6 +89,15 @@ function Get-PromptGitStatusColor($status) {
     return "Red"
   } else {
     return "Gray"
+  }
+}
+
+function Get-AwsCliCurrentProfile {
+  $profile = $env:AWS_DEFAULT_PROFILE
+  if ($profile) {
+    return $profile
+  } else {
+    return "default"
   }
 }
 
