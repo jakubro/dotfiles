@@ -3,6 +3,7 @@ Set-StrictMode -Version 2.0
 
 # sys
 Set-Alias which Get-Command
+Set-Alias grep sls
 
 # editors
 Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe"
