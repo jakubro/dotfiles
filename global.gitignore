@@ -1,4 +1,8 @@
 .idea/
 *.iml
+
 .vs/
 *.DotSettings
+
+.venv/
+node_modules/
