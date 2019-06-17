@@ -1,4 +1,4 @@
-#Requires -Modules Set-CondaEnvironment
+#Requires -Modules Set-CondaEnvironment, Invoke-PipInstall
 Set-StrictMode -Version 2.0
 
 # sys
@@ -10,9 +10,10 @@ Set-Alias devenv "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\
 Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
 Set-Alias vim "C:\Program Files (x86)\Vim\vim80\vim.exe"
 
-# conda
+# python
 Set-Alias conda "C:\ProgramData\Miniconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
+Set-Alias pip-add Invoke-PipInstall
 
 # dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
