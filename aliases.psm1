@@ -1,4 +1,4 @@
-#Requires -Modules Set-CondaEnvironment, Invoke-PipInstall
+#Requires -Modules Set-CondaEnvironment, Invoke-PipDo
 Set-StrictMode -Version 2.0
 
 # sys
@@ -13,7 +13,7 @@ Set-Alias vim "C:\Program Files (x86)\Vim\vim80\vim.exe"
 # python
 Set-Alias conda "C:\ProgramData\Miniconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
-Set-Alias pip-add Invoke-PipInstall
+Set-Alias pip-do Invoke-PipDo
 
 # dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
