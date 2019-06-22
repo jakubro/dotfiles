@@ -1,4 +1,4 @@
-#Requires -Modules Set-CondaEnvironment, Invoke-PipDo
+#Requires -Modules Set-CondaEnvironment, Invoke-PipDo, Test-Command
 Set-StrictMode -Version 2.0
 
 # sys
@@ -11,14 +11,23 @@ Set-Alias sublime_text "C:\Program Files\Sublime Text 3\subl.exe"
 Set-Alias vim "C:\Program Files (x86)\Vim\vim80\vim.exe"
 
 # python
+Set-Alias python3 "C:\tools\python37\python.exe"
+Set-Alias pip3 "C:\tools\python37\Scripts\pip.exe"
+Set-Alias python2 "C:\tools\python27\python.exe"
+Set-Alias pip2 "C:\tools\python27\Scripts\pip.exe"
+if (!(Test-Command python)) {
+  Set-Alias python python3
+  Set-Alias pip pip3
+}
+Set-Alias pip3-do Invoke-Pip3Do
+Set-Alias pip2-do Invoke-Pip2Do
+Set-Alias pip-do Invoke-Pip3Do
 Set-Alias conda "C:\ProgramData\Miniconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
-Set-Alias pip-do Invoke-PipDo
 
 # dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
 Set-Alias codemerge "C:\Program Files\Devart\Code Compare\CodeMerge.exe"
-Set-Alias msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\MSBuild.exe"
 
 # hashicorp
 Set-Alias terraform "C:\tools\terraform\terraform.exe"

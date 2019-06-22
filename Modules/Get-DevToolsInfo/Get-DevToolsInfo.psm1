@@ -1,15 +1,36 @@
 Set-StrictMode -Version 2.0
 
-function Get-DevToolsInfo {
-  Write-Host -ForegroundColor Magenta -NoNewline "python"
-  Write-Host -ForegroundColor White "`t$( (Get-Command python).Source )"
+function Get-DevToolsInfo([switch] $Version) {
+  $commands = (
+    ('python', { python -V }),
+    ('pip', { pip -V }),
+    ('python2', { python2 -V }),
+    ('pip2', { pip2 -V }),
+    ('python3', { python3 -V }),
+    ('pip3', { pip3 -V }),
+    ('node', { node -v }),
+    ('npm', { npm -v })
+  )
 
-  Write-Host -ForegroundColor Magenta -NoNewline "pip"
-  Write-Host -ForegroundColor White "`t$( (Get-Command pip).Source )"
-
-  Write-Host -ForegroundColor Magenta -NoNewline "node"
-  Write-Host -ForegroundColor White "`t$( (Get-Command node).Source )"
-
-  Write-Host -ForegroundColor Magenta -NoNewline "npm"
-  Write-Host -ForegroundColor White "`t$( (Get-Command npm).Source )"
+  foreach ($k in $commands) {
+    $command = $k[0]
+    $versionGetter = $k[1]
+    Write-Host -ForegroundColor Magenta -NoNewline $command
+    try {
+      $cmd = Get-Command $command -ErrorAction Stop
+      if ($cmd.CommandType -eq "Alias") {
+        $cmd = (Get-Alias $command).Definition
+      } else {
+        $cmd = $cmd.Source
+      }
+      Write-Host -ForegroundColor White -NoNewline "`t$( $cmd )"
+      if ($Version) {
+        Write-Host -ForegroundColor White -NoNewline "`t$( Invoke-Command $versionGetter )"
+      }
+    } catch {
+      Write-Host -ForegroundColor White -NoNewline "`tn/a"
+    } finally {
+      Write-Host
+    }
+  }
 }
