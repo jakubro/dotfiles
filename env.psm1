@@ -8,6 +8,9 @@ $env:Path = "$env:APPDATA\Python\Python37\site-packages;$env:Path"
 $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
 $env:ANDROID_SDK = "$env:LOCALAPPDATA\Android\Sdk"
 
+# msbuild
+$env:Path = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin;$env:Path"
+
 # cuda
 $env:Path = "$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin;$env:Path"
 $env:Path = "$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\CUPTI\libx64;$env:Path"
