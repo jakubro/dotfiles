@@ -25,6 +25,12 @@ Set-Alias pip-do Invoke-Pip3Do
 Set-Alias conda "C:\ProgramData\Miniconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
 
+# node
+Set-Alias node12 "$env:NODEJS12_HOME\node.exe"
+Set-Alias npm12 "$env:NODEJS12_HOME\npm.cmd"
+Set-Alias node8 "$env:NODEJS8_HOME\node.exe"
+Set-Alias npm8 "$env:NODEJS8_HOME\npm.cmd"
+
 # dev
 Set-Alias codecompare "C:\Program Files\Devart\Code Compare\CodeCompare.exe"
 Set-Alias codemerge "C:\Program Files\Devart\Code Compare\CodeMerge.exe"

@@ -1,4 +1,4 @@
-#Requires -Modules Get-GitStatus
+#Requires -Modules Get-GitStatus, Get-DefaultPython, Get-DefaultNode
 
 Set-StrictMode -Version 2.0
 
@@ -14,13 +14,17 @@ function Get-Prompt($Settings) {
     Write-Host -NoNewline -ForegroundColor Green " ($name)"
   }
 
-  Write-Host -NoNewline -ForegroundColor Yellow " ($(Get-AwsCliCurrentProfile))"
+  $python = (Get-DefaultPython) -replace 'python', 'py'
+  $node = Get-DefaultNode
+  Write-Host -NoNewline -ForegroundColor Magenta " [$python | $node]"
+
+  Write-Host -NoNewline -ForegroundColor Yellow " ($( Get-AwsCliCurrentProfile ))"
 
   $location = Get-PromptLocation
   Write-Host -NoNewline " $location"
 
   if ($status = Get-PromptGitStatus) {
-    Write-Host -NoNewline -ForegroundColor $status.Color " [$($status.String)]"
+    Write-Host -NoNewline -ForegroundColor $status.Color " [$( $status.String )]"
   }
 
   return " $ "
@@ -39,7 +43,7 @@ function Get-PromptLocation {
 }
 
 function Get-PromptName {
-  if ([string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
+  if ( [string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
     return $null
   } else {
     return $env:ParentPSPromptName.Trim()
@@ -62,7 +66,7 @@ function Get-PromptGitStatusString($status) {
   $str = $status.Local
 
   if (!$status.IsBranch) {
-     return ":" + $str
+    return ":" + $str
   }
 
   if (!$status.Remote) {
