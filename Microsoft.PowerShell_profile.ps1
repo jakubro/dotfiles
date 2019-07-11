@@ -1,4 +1,4 @@
-#Requires -Modules Checkpoint-EnvironmentVariable, Get-DevToolsInfo, Import-DotEnv, Set-CondaEnvironment, Set-ActiveNodejs
+#Requires -Modules Checkpoint-EnvironmentVariable, Get-DevToolsInfo, Import-DotEnv, Set-CondaEnvironment, Set-NodeRuntime
 Set-StrictMode -Version 2.0
 
 # Bootstrap
@@ -25,7 +25,7 @@ Import-Module "$ProfileDirectory\prompt.psm1"
 Import-Module "$ProfileDirectory\env.psm1"
 Import-Module "$ProfileDirectory\aliases.psm1"
 
-Set-ActiveNodejs 12
+Set-NodeRuntime 12
 
 Write-Host
 Get-DevToolsInfo

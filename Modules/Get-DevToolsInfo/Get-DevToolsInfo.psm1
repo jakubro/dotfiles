@@ -1,42 +1,46 @@
-#Requires -Modules Get-OriginalCommand
+#Requires -Modules Get-OriginalCommand, Get-DefaultPython, Get-DefaultNode
 
 Set-StrictMode -Version 2.0
 
-function Get-DevToolsInfo([switch] $Version, $Commands = $null) {
-  $defaultCommands = (
-    ('python', { python -V }),
-    ('pip', { pip -V }),
-    ('python3', { python3 -V }),
-    ('pip3', { pip3 -V }),
-    ('python2', { python2 -V }),
-    ('pip2', { pip2 -V }),
-    ('node', { node -v }),
-    ('npm', { npm -v }),
-    ('node12', { node12 -v }),
-    ('npm12', { npm12 -v }),
-    ('node8', { node8 -v }),
-    ('npm8', { npm8 -v })
-  )
-
+function Get-DevToolsInfo([switch] $All, [switch] $Version, $Commands = $null) {
   if (!$Commands) {
-    $Commands = $defaultCommands
+    $Commands = (
+      ('python', { python -V }, $true),
+      ('pip', { pip -V }, $true),
+      ('python3', { python3 -V }, $false),
+      ('pip3', { pip3 -V }, $false),
+      ('python2', { python2 -V }, $false),
+      ('pip2', { pip2 -V }, $false),
+      ('node', { node -v }, $true),
+      ('npm', { npm -v }, $true),
+      ('node12', { node12 -v }, $false),
+      ('npm12', { npm12 -v }, $false),
+      ('node8', { node8 -v }, $false),
+      ('npm8', { npm8 -v }, $false)
+    )
   }
 
-  foreach ($k in $Commands) {
+  foreach ($it in $Commands) {
 
-    if ($k -is [string]) {
-      $command = $k
+    if ($it -is [string]) {
+      $command = $it
       $versionGetter = $null
+      $onlyInAll = $true
     } else {
-      $command = $k[0]
-      $versionGetter = $k[1]
+      $command = $it[0]
+      $versionGetter = $it[1]
+      $onlyInAll = $it[2]
+    }
+
+    if (!$onlyInAll -and !$All) {
+      continue
     }
 
     Write-Host -ForegroundColor Magenta -NoNewline $command
 
     try {
-      $cmd = Get-OriginalCommand $command
-      Write-Host -ForegroundColor White -NoNewline "`t$( $cmd )"
+      $path = Get-OriginalCommand $command
+      Write-Host -ForegroundColor White -NoNewline "`t$( $path )"
       if ($Version -and $versionGetter) {
         Write-Host -ForegroundColor White -NoNewline "`t$( Invoke-Command $versionGetter )"
       }

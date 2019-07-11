@@ -6,7 +6,7 @@ $env:Path = "$env:APPDATA\Python\Python37\site-packages;$env:Path"
 
 # node
 $env:NODEJS12_HOME = "C:\Users\jakub\AppData\Roaming\nvm\v12.5.0"
-$env:NODEJS8_HOME =  "C:\Users\jakub\AppData\Roaming\nvm\v8.16.0"
+$env:NODEJS8_HOME = "C:\Users\jakub\AppData\Roaming\nvm\v8.16.0"
 
 # android
 $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
