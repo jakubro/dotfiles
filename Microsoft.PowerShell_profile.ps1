@@ -20,9 +20,9 @@ if (!$env:ParentPS) {
 $ProfileDirectory = Split-Path $PROFILE
 
 # Load customized prompt, set aliases and other environment variables.
-Import-Module "$ProfileDirectory\prompt.psm1"
 Import-Module "$ProfileDirectory\env.psm1"
 Import-Module "$ProfileDirectory\aliases.psm1"
+Import-Module "$ProfileDirectory\prompt.psm1"
 
 Set-NodeRuntime 12
 
