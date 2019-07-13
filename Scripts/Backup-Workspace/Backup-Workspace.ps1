@@ -1,4 +1,3 @@
-#Requires -Modules TryCreate-EventLog, Import-DotEnv
 Set-StrictMode -Version 2.0
 
 $logName = "@jakubro/dotfiles"

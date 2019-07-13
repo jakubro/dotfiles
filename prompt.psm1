@@ -1,5 +1,3 @@
-#Requires -Modules Get-Prompt, Enter-PythonEnvironment
-
 # These settings controls how the prompt looks like and behaves.
 $PSPromptSettings = @{
   # If $True, then display only "$ " as the prompt, otherwise display current time, working

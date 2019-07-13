@@ -1,4 +1,3 @@
-#Requires -Modules Set-CondaEnvironment, Invoke-PipDo, Test-Command
 Set-StrictMode -Version 2.0
 
 # sys

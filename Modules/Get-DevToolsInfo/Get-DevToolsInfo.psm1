@@ -1,5 +1,3 @@
-#Requires -Modules Get-OriginalCommand, Get-DefaultPython, Get-DefaultNode
-
 Set-StrictMode -Version 2.0
 
 function Get-DevToolsInfo([switch] $All, [switch] $Version, $Commands = $null) {

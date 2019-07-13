@@ -1,5 +1,3 @@
-#Requires -Modules Get-GitStatus, Get-DefaultPython, Get-DefaultNode
-
 Set-StrictMode -Version 2.0
 
 function Get-Prompt($Settings) {

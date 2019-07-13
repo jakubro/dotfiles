@@ -1,5 +1,3 @@
-#Requires -Modules Get-OriginalCommand
-
 Set-StrictMode -Version 2.0
 
 function Set-NodeRuntime([int] $Version = 12) {

@@ -1,4 +1,3 @@
-#Requires -Modules Format-Color
 Set-StrictMode -Version 2.0
 
 # compares two values and prints a diff if they differ

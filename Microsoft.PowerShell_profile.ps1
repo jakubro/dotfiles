@@ -1,4 +1,3 @@
-#Requires -Modules Checkpoint-EnvironmentVariable, Get-DevToolsInfo, Import-DotEnv, Set-CondaEnvironment, Set-NodeRuntime
 Set-StrictMode -Version 2.0
 
 # Bootstrap
