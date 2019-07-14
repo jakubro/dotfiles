@@ -8,9 +8,70 @@ Preferences and settings for my toolbox.
 * Scripts - Some tooling
 * Templates - Repetitive boilerplate for new projects
 
-Prompt:
+Shell prompt:
 
-- Displays git status - working tree state, current branch and commits behind, ahead.
+- Shell starts in a predefined directory ([`INITIAL_CWD` in `~\.env`](.env.sample)).
+- Displays current time.
 - Displays currently activated Python virtual environment (venv or conda).
-- Displays current AWS CLI profile.
-- Automatically activates Python virtual environment (only venv) on entering a directory with a venv located in subdirectory `.venv`, and deactivates it on exiting this directory.
+- Displays currently activated Node.js interpreter. (Use `node-activate <version>` to switch between interpreters.)
+- Displays current AWS CLI profile. (Set `$env:AWS_DEFAULT_PROFILE` to switch between profiles.)
+- Displays only name of the current directory, and not its full path (configurable via [`$env:PSPromptSettings.FullPath`](prompt.psm1)).
+- Displays git status - working tree state, current branch and number of commits behind and ahead.
+- All of the info above can be hidden via [`$env:PSPromptSettings.Compact`](prompt.psm1).
+- Automatically activates Python virtual environment (only venv) on entering a directory, if it or any of its parents contains a venv located in subdirectory `.venv`, and deactivates it on entering a directory that does not satisfy such condition.
+
+## Utilities
+
+### `pip-do` - venv-aware pip
+
+[`pip-do` (alias to `Invoke-PipDo`)](Modules/Invoke-PipDo/Invoke-PipDo.psm1) is a tiny wrapper around `pip`.
+It has the same interface as `pip`, but it ensures that you're always working inside a virtual environment.
+
+```console
+$ ls -Name
+$ pip-do install attrs
+Python 3.7.3
+Virtual environment does not exist. Creating new one ...
+Running pip install attrs ...
+Collecting attrs
+  Using cached https://files.pythonhosted.org/packages/23/96/d828354fa2dbdf216eaa7b7de0db692f12c234f7ef888cc14980ef40d1d2/attrs-19.1.0-py2.py3-none-any.whl
+Installing collected packages: attrs
+Successfully installed attrs-19.1.0
+You are using pip version 19.0.3, however version 19.1.1 is available.
+You should consider upgrading via the 'python -m pip install --upgrade pip' command.
+Updating requirements.lock.txt ...
+$ ls -Name
+.venv
+requirements.lock.txt
+$ cat .\requirements.lock.txt
+attrs==19.1.0
+```
+
+#### Why?
+
+Because most of the time you want to install packages locally, and only occasionally to install them globally.
+
+#### How it works?
+
+If you are already inside a virtual environment, then `pip-do` runs `pip` inside that environment.
+
+On the other hand, if you are not inside a virtual environment yet, and there exists one that can be activated, then `pip-do` activates that environment before passing work to `pip`.
+
+When there's no environment to activate, then `pip-do`  creates a new one for you in the current directory and activates it, before invoking `pip`.
+
+As a bonus point, `pip-do` automatically creates or updates `requirements.lock.txt` file to contain all installed packages (`pip freeze`).
+
+### `node-activate` - Switching Node.js environments
+
+[`node-activate` (alias to `Set-NodeRuntime`)](Modules/Set-NodeRuntime/Set-NodeRuntime.psm1) activates one of installed Node.js interpreters.
+
+```console
+$ node-activate 8
+```
+
+To install new Node.js interpreter, use [`nvm-windows`](https://github.com/coreybutler/nvm-windows).
+
+#### Why?
+
+This tool activates particular interpreter only in the current scope (in accordance to [`nvm`](https://github.com/nvm-sh/nvm) behavior)
+and not globally (as [`nvm-windows`]((https://github.com/coreybutler/nvm-windows)) does).
