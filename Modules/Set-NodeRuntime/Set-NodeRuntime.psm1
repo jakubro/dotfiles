@@ -6,4 +6,10 @@ function Set-NodeRuntime([int] $Version = 12) {
     throw "$Version is not a valid Node.js version."
   }
   $env:Path = "$nodePath;$env:Path"
+
+  Set-Alias node "node$Version" -Scope Global
+  Set-Alias npm "npm$Version" -Scope Global
+
+  Export-ModuleMember -Alias node
+  Export-ModuleMember -Alias npm
 }

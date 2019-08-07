@@ -23,6 +23,7 @@ $env:Path = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\MSB
 
 # node
 $env:NODEJS12_HOME = "$env:AppData\nvm\v12.5.0"
+$env:NODEJS10_HOME = "$env:AppData\nvm\v10.16.1"
 $env:NODEJS8_HOME = "$env:AppData\nvm\v8.16.0"
 
 # python

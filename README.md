@@ -19,6 +19,24 @@ Shell prompt:
 - Displays git status - working tree state, current branch and number of commits behind and ahead.
 - All of the info above can be hidden via [`$env:PSPromptSettings.Compact`](prompt.psm1).
 - Automatically activates Python virtual environment (only venv) on entering a directory, if it or any of its parents contains a venv located in subdirectory `.venv`, and deactivates it on entering a directory that does not satisfy such condition.
+- Automatically activates Node.js interpreter on entering a directory, if it or any of its parents contains a file `.nvmrc` with a version of the desired Node.js interpreter, and deactivates it on entering a directory that does not satisfy such condition.
+
+Example 
+
+```
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Changes in %PATH%: None
+
+python  C:\tools\python37\python.exe
+pip     C:\tools\python37\Scripts\pip.exe
+node    C:\Users\jakub\AppData\Roaming\nvm\v12.5.0\node.exe
+npm     C:\Users\jakub\AppData\Roaming\nvm\v12.5.0\npm.cmd
+
+Loading personal and system profiles took 1357ms.
+19:38:06 (cool-project) [py:venv | node:12] (default) web [master 1→] $
+```
 
 ## Utilities
 

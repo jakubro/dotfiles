@@ -12,9 +12,12 @@ function Get-Prompt($Settings) {
     Write-Host -NoNewline -ForegroundColor Green " ($name)"
   }
 
-  $python = (Get-DefaultPython) -replace 'python', 'py'
-  $node = Get-DefaultNode
-  Write-Host -NoNewline -ForegroundColor Magenta " [$python | $node]"
+  $python = (Get-DefaultPython) -replace 'python', ''
+  if (!$python) {
+    $python = "venv"
+  }
+  $node = (Get-DefaultNode) -replace 'node', ''
+  Write-Host -NoNewline -ForegroundColor Magenta " [py:$python | node:$node]"
 
   Write-Host -NoNewline -ForegroundColor Yellow " ($( Get-AwsCliCurrentProfile ))"
 
@@ -41,11 +44,35 @@ function Get-PromptLocation {
 }
 
 function Get-PromptName {
-  if ( [string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
-    return $null
-  } else {
-    return $env:ParentPSPromptName.Trim()
+
+  # todo: remove eventually
+  #  if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
+  #    return $env:ParentPSPromptName.Trim()
+  #  }
+
+  $python = $null
+  $node = $null
+
+  if (![string]::IsNullOrWhiteSpace($env:PythonEnvRoot)) {
+    $python = Split-Path -Leaf $env:PythonEnvRoot
   }
+
+  if (![string]::IsNullOrWhiteSpace($env:NodeEnvRoot)) {
+    $node = Split-Path -Leaf $env:NodeEnvRoot
+  }
+
+  $rv = ""
+  foreach ($kv in (('py', $python), ('node', $node))) {
+    $key = $kv[0]
+    $val = $kv[1]
+    if ($val) {
+      if (![string]::IsNullOrWhiteSpace($rv)) {
+        $rv += " | "
+      }
+      $rv += "$($key):$($val)"
+    }
+  }
+  return $rv
 }
 
 function Get-PromptGitStatus {

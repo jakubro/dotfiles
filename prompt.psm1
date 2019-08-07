@@ -11,6 +11,7 @@ $PSPromptSettings = @{
 
 function Prompt {
   Enter-PythonEnvironment
+  Enter-NodeEnvironment
   return Get-Prompt -Settings $PSPromptSettings
 }
 

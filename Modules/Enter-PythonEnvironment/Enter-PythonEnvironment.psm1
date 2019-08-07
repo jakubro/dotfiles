@@ -5,12 +5,12 @@ function Enter-PythonEnvironment {
   # depending on the current location.
 
   # deactivate
-  if ($env:VirtualEnvRoot) {
+  if ($env:PythonEnvRoot) {
     Deactivate-PythonEnvironment $PWD.Path
   }
 
   # activate
-  if (!$env:VirtualEnvRoot) {
+  if (!$env:PythonEnvRoot) {
     $path = $PWD.Path
     while ($path) {
       if (Activate-PythonEnvironment $path) {
@@ -22,20 +22,18 @@ function Enter-PythonEnvironment {
 }
 
 function Deactivate-PythonEnvironment($Path) {
-  if (!$Path.StartsWith($env:VirtualEnvRoot) -or
-      !(Test-Path (Join-Path $env:VirtualEnvRoot '.venv'))) {
+  if (!$Path.StartsWith($env:PythonEnvRoot) -or
+      !(Test-Path (Join-Path $env:PythonEnvRoot '.venv'))) {
     deactivate
-    $env:VirtualEnvRoot = $null
-    $env:ParentPSPromptName = $null
+    $env:PythonEnvRoot = $null
   }
 }
 
 function Activate-PythonEnvironment($Path) {
   $activate = Join-Path $Path '.venv\Scripts\Activate.ps1'
   if (Test-Path $activate) {
-    $env:VirtualEnvRoot = $Path
-    $env:VIRTUAL_ENV_DISABLE_PROMPT = $true
-    $env:ParentPSPromptName = Split-Path -Leaf $Path
+    $env:PythonEnvRoot = $Path
+    $env:VIRTUAL_ENV_DISABLE_PROMPT = $true  # disable Activate.ps1 to edit the prompt
     & $activate
     return $true
   }

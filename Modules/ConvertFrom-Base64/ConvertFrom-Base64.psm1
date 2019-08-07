@@ -37,6 +37,6 @@ function ConvertFrom-Base64 {
   if ($OutFile -eq $null) {
     return $rv
   } else {
-    [System.IO.File]::WriteAllBytes($path, $bytes)
+    [System.IO.File]::WriteAllBytes($OutFile, $bytes)
   }
 }
