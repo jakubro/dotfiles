@@ -5,24 +5,55 @@ function Get-Prompt($Settings) {
     return "$ "
   }
 
+  # Date
+
   $date = Get-PromptDate
   Write-Host -NoNewline $date
 
-  if ($name = Get-PromptName) {
+  # Named prompt
+
+  if (![string]::IsNullOrWhiteSpace($env:PSPromptName)) {
+    $name = $env:PSPromptName.Trim()
     Write-Host -NoNewline -ForegroundColor Green " ($name)"
   }
 
-  $python = (Get-DefaultPython) -replace 'python', ''
-  if (!$python) {
-    $python = "venv"
-  }
-  $node = (Get-DefaultNode) -replace 'node', ''
-  Write-Host -NoNewline -ForegroundColor Magenta " [py:$python | node:$node]"
+  # Python, Node.js environments
 
-  Write-Host -NoNewline -ForegroundColor Yellow " ($( Get-AwsCliCurrentProfile ))"
+  $envs = ""
+
+  if (![string]::IsNullOrWhiteSpace($envs)) {
+    $envs += " | "
+  }
+  $envs += "py"
+  if (![string]::IsNullOrWhiteSpace($env:PythonEnvRoot)) {
+    $envs += "@" + (Split-Path -Leaf $env:PythonEnvRoot)
+  } else {
+    $envs += "#" + (Get-DefaultPython) -replace 'python', ''
+  }
+
+  if (![string]::IsNullOrWhiteSpace($envs)) {
+    $envs += " | "
+  }
+  $envs += "node"
+  if (![string]::IsNullOrWhiteSpace($env:NodeEnvRoot)) {
+    $envs += "@" + (Split-Path -Leaf $env:NodeEnvRoot)
+  }
+  $envs += "#" + (Get-DefaultNode) -replace 'node', ''
+
+  Write-Host -NoNewline -ForegroundColor Magenta " [$envs]"
+
+  # AWS
+
+  if ($aws = Get-AwsCliCurrentProfile) {
+    Write-Host -NoNewline -ForegroundColor Yellow " ($aws)"
+  }
+
+  # Location
 
   $location = Get-PromptLocation
   Write-Host -NoNewline " $location"
+
+  # Git
 
   if ($status = Get-PromptGitStatus) {
     Write-Host -NoNewline -ForegroundColor $status.Color " [$( $status.String )]"
@@ -41,38 +72,6 @@ function Get-PromptLocation {
   } else {
     return Split-Path -Leaf $PWD.ProviderPath
   }
-}
-
-function Get-PromptName {
-
-  # todo: remove eventually
-  #  if (![string]::IsNullOrWhiteSpace($env:ParentPSPromptName)) {
-  #    return $env:ParentPSPromptName.Trim()
-  #  }
-
-  $python = $null
-  $node = $null
-
-  if (![string]::IsNullOrWhiteSpace($env:PythonEnvRoot)) {
-    $python = Split-Path -Leaf $env:PythonEnvRoot
-  }
-
-  if (![string]::IsNullOrWhiteSpace($env:NodeEnvRoot)) {
-    $node = Split-Path -Leaf $env:NodeEnvRoot
-  }
-
-  $rv = ""
-  foreach ($kv in (('py', $python), ('node', $node))) {
-    $key = $kv[0]
-    $val = $kv[1]
-    if ($val) {
-      if (![string]::IsNullOrWhiteSpace($rv)) {
-        $rv += " | "
-      }
-      $rv += "$($key):$($val)"
-    }
-  }
-  return $rv
 }
 
 function Get-PromptGitStatus {
@@ -126,7 +125,7 @@ function Get-AwsCliCurrentProfile {
   if ($profile) {
     return $profile
   } else {
-    return "default"
+    return $null
   }
 }
 

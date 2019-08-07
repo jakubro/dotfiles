@@ -4,15 +4,15 @@ Set-StrictMode -Version 2.0
 function Compare-EnvironmentVariable([string] $Name, [string] $OldValue, [string] $NewValue) {
   $Name = $Name.ToUpper()
   if ([string]::IsNullOrEmpty($OldValue)) {
-    Write-Warning "Changes in %$Name%: Dump does not exist"
+    Write-Warning "Changes in `$env:$($Name): Dump does not exist"
     return -1
   }
   elseif ($OldValue -eq $NewValue) {
-    Write-Host -ForegroundColor Green "Changes in %$Name%: None"
+    Write-Host -ForegroundColor Green "Changes in `$env:$($Name): None"
     return 0
   }
   else {
-    Write-Warning "Changes in %$Name%: Detected"
+    Write-Warning "Changes in `$env:$($Name): Detected"
     $a = $NewValue -split ";"
     $b = $OldValue -split ";"
     Compare-Object $a $b | Format-Color @{"=>" = "Red"; "<=" = "Green"}

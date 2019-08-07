@@ -12,8 +12,8 @@ Shell prompt:
 
 - Shell starts in a predefined directory ([`INITIAL_CWD` in `~\.env`](.env.sample)).
 - Displays current time.
-- Displays currently activated Python virtual environment (venv or conda).
-- Displays currently activated Node.js interpreter. (Use `node-activate <version>` to switch between interpreters.)
+- Displays explicit name of the current shell. (Set `$env:PSPromptName` to name the shell.)
+- Displays currently activated Python virtual environment and Node.js interpreter.
 - Displays current AWS CLI profile. (Set `$env:AWS_DEFAULT_PROFILE` to switch between profiles.)
 - Displays only name of the current directory, and not its full path (configurable via [`$env:PSPromptSettings.FullPath`](prompt.psm1)).
 - Displays git status - working tree state, current branch and number of commits behind and ahead.
@@ -27,7 +27,7 @@ Example
 Windows PowerShell
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Changes in %PATH%: None
+Changes in $env:PATH: None
 
 python  C:\tools\python37\python.exe
 pip     C:\tools\python37\Scripts\pip.exe
@@ -35,7 +35,7 @@ node    C:\Users\jakub\AppData\Roaming\nvm\v12.5.0\node.exe
 npm     C:\Users\jakub\AppData\Roaming\nvm\v12.5.0\npm.cmd
 
 Loading personal and system profiles took 1357ms.
-19:38:06 (cool-project) [py:venv | node:12] (default) web [master 1→] $
+19:38:06 [py@cool-project | node@cool-company#12] (AWS Profile Name) web [master 1→] $
 ```
 
 ## Utilities

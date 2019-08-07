@@ -5,7 +5,7 @@ function Set-CondaEnvironment {
   cmd /C (
     "C:\ProgramData\Miniconda3\Scripts\activate.bat $name && " +
     "set ParentPS=true && " +
-    "set ParentPSPromptName=$name && " +
+    "set PSPromptName=$name && " +
     "powershell -NoExit -NoLogo"
   )
 }
