@@ -11,6 +11,7 @@ Preferences and settings for my toolbox.
 Shell prompt:
 
 - Shell starts in a predefined directory ([`INITIAL_CWD` in `~\.env`](.env.sample)).
+- When the shell starts it makes a backup of environment variable `PATH` to `~\.path.txt`.
 - Displays current time.
 - Displays explicit name of the current shell. (Set `$env:PSPromptName` to name the shell.)
 - Displays currently activated Python virtual environment and Node.js interpreter.
@@ -21,7 +22,7 @@ Shell prompt:
 - Automatically activates Python virtual environment (only venv) on entering a directory, if it or any of its parents contains a venv located in subdirectory `.venv`, and deactivates it on entering a directory that does not satisfy such condition.
 - Automatically activates Node.js interpreter on entering a directory, if it or any of its parents contains a file `.nvmrc` with a version of the desired Node.js interpreter, and deactivates it on entering a directory that does not satisfy such condition.
 
-Example 
+Example:
 
 ```
 Windows PowerShell
