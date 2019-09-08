@@ -42,6 +42,18 @@ function Get-Prompt($Settings) {
 
   Write-Host -NoNewline -ForegroundColor Magenta " [$envs]"
 
+  # WSL
+
+  if (![string]::IsNullOrWhiteSpace($env:WSLDistribution)) {
+    $wsl = ""
+    if (![string]::IsNullOrWhiteSpace($env:WSLUser)) {
+      $wsl += "$env:WSLUser@"
+    }
+    $wsl += $env:WSLDistribution
+
+    Write-Host -NoNewline -ForegroundColor Yellow " $wsl"
+  }
+
   # AWS
 
   if ($aws = Get-AwsCliCurrentProfile) {
