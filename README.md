@@ -38,7 +38,7 @@ node    C:\Users\jakub\AppData\Roaming\nvm\v12.5.0\node.exe
 npm     C:\Users\jakub\AppData\Roaming\nvm\v12.5.0\npm.cmd
 
 Loading personal and system profiles took 1357ms.
-19:38:06 [py@cool-project | node@cool-company#12] (AWS Profile Name) web [master 1→] $
+19:38:06 [py@cool-project | node@cool-company#12] jakub@cool-company-ubuntu-16 (AWS Profile Name) web [master 1→] $
 ```
 
 ## Utilities
