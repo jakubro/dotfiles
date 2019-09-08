@@ -41,6 +41,28 @@ Loading personal and system profiles took 1357ms.
 19:38:06 [py@cool-project | node@cool-company#12] jakub@cool-company-ubuntu-16 (AWS Profile Name) web [master 1→] $
 ```
 
+Example of automatic switching Python, Node.js and WSL
+
+```
+Directory Tree                      Content     Node.js     Python      WSL
+--------------------------------------------------------------------------------------------------
+C:\                                             default     default     default
+└── dev\                                        12          default     ubuntu-18
+    ├── .nvmrc                      12
+    ├── .wslrc                      ubuntu-18
+    └── src\                                    inherit     inherit     inherit
+        ├── acme\                               8           default     acme-16
+        │   ├── .nvmrc              8
+        │   └── .wslrc              acme-16
+        └── cool-company\                       8           inherit     cool-16
+            ├── .nvmrc              8
+            ├── .wslrc              cool-16
+            ├── cool-project\                   12          .venv\      cool-16
+                ├── .nvmrc          12
+                ├─ .venv\
+                └── sub\                        inherit     inherit     inherit
+```
+
 ## Utilities
 
 ### `pip-do` - venv-aware pip
