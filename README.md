@@ -59,7 +59,7 @@ C:\                                             default     default     default
             ├── .wslrc              cool-16
             └── cool-project\                   12          .venv\      cool-16
                 ├── .nvmrc          12
-                ├─ .venv\
+                ├── .venv\
                 └── sub\                        inherit     inherit     inherit
 ```
 
