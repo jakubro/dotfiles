@@ -57,7 +57,7 @@ C:\                                             default     default     default
         └── cool-company\                       8           inherit     cool-16
             ├── .nvmrc              8
             ├── .wslrc              cool-16
-            ├── cool-project\                   12          .venv\      cool-16
+            └── cool-project\                   12          .venv\      cool-16
                 ├── .nvmrc          12
                 ├─ .venv\
                 └── sub\                        inherit     inherit     inherit
