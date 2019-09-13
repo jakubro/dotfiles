@@ -22,8 +22,7 @@ function Set-WSLRuntime([string] $Distribution, [string] $User) {
     if (Test-Path Alias:\wsl) {
       Remove-Item Alias:\wsl
     }
-  }
-  else {
+  } else {
     $env:WSLDistribution = $Distribution
     $env:WSLUser = $User
 

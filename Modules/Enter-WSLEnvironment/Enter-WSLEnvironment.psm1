@@ -21,7 +21,8 @@ function Enter-WSLEnvironment {
 }
 
 function Deactivate-WSLEnvironment($Path) {
-  if (!$Path.StartsWith($env:WSLEnvRoot) -or
+  if ((Test-Path (Join-Path $Path '.wslrc')) -or
+      !$Path.StartsWith($env:WSLEnvRoot) -or
       !(Test-Path (Join-Path $env:WSLEnvRoot '.wslrc'))) {
     Set-WSLRuntime
     $env:WSLEnvRoot = $null
@@ -29,10 +30,10 @@ function Deactivate-WSLEnvironment($Path) {
 }
 
 function Activate-WSLEnvironment($Path) {
-  $nvmrc = Join-Path $Path '.wslrc'
-  if (Test-Path $nvmrc) {
+  $wslrc = Join-Path $Path '.wslrc'
+  if (Test-Path $wslrc) {
     $env:WSLEnvRoot = $Path
-    $distro = Get-Content $nvmrc
+    $distro = Get-Content $wslrc
     if (![string]::IsNullOrWhiteSpace($distro)) {
       Set-WSLRuntime -Distribution $distro -User $env:USERNAME
       return $true

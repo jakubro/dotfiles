@@ -22,7 +22,8 @@ function Enter-PythonEnvironment {
 }
 
 function Deactivate-PythonEnvironment($Path) {
-  if (!$Path.StartsWith($env:PythonEnvRoot) -or
+  if ((Test-Path (Join-Path $Path '.venv\Scripts\Activate.ps1')) -or
+      !$Path.StartsWith($env:PythonEnvRoot) -or
       !(Test-Path (Join-Path $env:PythonEnvRoot '.venv'))) {
     deactivate
     $env:PythonEnvRoot = $null

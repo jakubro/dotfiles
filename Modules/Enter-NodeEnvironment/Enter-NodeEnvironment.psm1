@@ -21,7 +21,8 @@ function Enter-NodeEnvironment {
 }
 
 function Deactivate-NodeEnvironment($Path) {
-  if (!$Path.StartsWith($env:NodeEnvRoot) -or
+  if ((Test-Path (Join-Path $Path '.nvmrc')) -or
+      !$Path.StartsWith($env:NodeEnvRoot) -or
       !(Test-Path (Join-Path $env:NodeEnvRoot '.nvmrc'))) {
     Set-NodeRuntime
     $env:NodeEnvRoot = $null
