@@ -4,27 +4,21 @@ $original = (Get-Command wsl).Source
 
 function Invoke-WSL() {
   $cmd = "$original"
-  if (![string]::IsNullOrWhiteSpace($env:Distribution)) {
-    $cmd += " -d $env:Distribution"
-    if (![string]::IsNullOrWhiteSpace($env:User)) {
-      $cmd += " -u $env:User"
-    }
+  if (![string]::IsNullOrWhiteSpace($env:PSWSLDistribution)) {
+    $cmd += " -d $env:PSWSLDistribution"
   }
   Invoke-Expression "$cmd $args"
 }
 
-function Set-WSLRuntime([string] $Distribution, [string] $User) {
-  if ([string]::IsNullOrWhiteSpace($Distribution) -and
-      [string]::IsNullOrWhiteSpace($User)) {
-    $env:WSLDistribution = $null
-    $env:WSLUser = $null
+function Set-WSLRuntime([string] $Distribution) {
+  if ( [string]::IsNullOrWhiteSpace($Distribution)) {
+    $env:PSWSLDistribution = $null
 
     if (Test-Path Alias:\wsl) {
       Remove-Item Alias:\wsl
     }
   } else {
-    $env:WSLDistribution = $Distribution
-    $env:WSLUser = $User
+    $env:PSWSLDistribution = $Distribution
 
     Set-Alias wsl Invoke-WSL -Scope Global
     Export-ModuleMember -Alias wsl

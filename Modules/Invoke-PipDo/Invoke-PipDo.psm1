@@ -17,7 +17,7 @@ function Invoke-PipDo([int] $Version, $Arguments) {
     throw "$Version is not a valid Python version. Acceptable values are: 3, 2"
   }
 
-  if (!$env:PythonEnvRoot -or !(Test-Path (Join-Path $env:PythonEnvRoot '.venv\Scripts\Activate.ps1'))) {
+  if (!$env:PSPythonScopeRoot -or !(Test-Path (Join-Path $env:PSPythonScopeRoot '.venv\Scripts\Activate.ps1'))) {
     Write-Host -ForegroundColor Yellow "Virtual environment does not exist. Creating new one ..."
     if ($Version -eq 3) {
       python3 -m venv .venv
@@ -25,13 +25,13 @@ function Invoke-PipDo([int] $Version, $Arguments) {
       python2 -m virtualenv .venv
     }
   } else {
-    Write-Host -ForegroundColor Yellow "Using virtual environment from $env:PythonEnvRoot ..."
+    Write-Host -ForegroundColor Yellow "Using virtual environment from $env:PSPythonScopeRoot ..."
   }
 
-  Enter-PythonEnvironment
+  Enter-PythonScope
 
-  if (!(which python).Source.StartsWith((Join-Path $env:PythonEnvRoot '.venv')) -or
-      !(which pip).Source.StartsWith((Join-Path $env:PythonEnvRoot '.venv'))) {
+  if (!(which python).Source.StartsWith((Join-Path $env:PSPythonScopeRoot '.venv')) -or
+      !(which pip).Source.StartsWith((Join-Path $env:PSPythonScopeRoot '.venv'))) {
     throw "python.exe or pip.exe does not point to current virtual environment."
   }
 
@@ -39,5 +39,5 @@ function Invoke-PipDo([int] $Version, $Arguments) {
   Invoke-Expression "pip $Arguments"
 
   Write-Host -ForegroundColor Yellow "Updating requirements.lock.txt ..."
-  pip freeze | Out-File -Encoding ascii (Join-Path $env:PythonEnvRoot 'requirements.lock.txt')
+  pip freeze | Out-File -Encoding ascii (Join-Path $env:PSPythonScopeRoot 'requirements.lock.txt')
 }

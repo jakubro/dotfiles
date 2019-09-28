@@ -10,9 +10,9 @@ $PSPromptSettings = @{
 }
 
 function Prompt {
-  Enter-PythonEnvironment
-  Enter-NodeEnvironment
-  Enter-WSLEnvironment
+  Enter-PythonScope
+  Enter-NodeScope
+  Enter-WSLScope
   return Get-Prompt -Settings $PSPromptSettings
 }
 

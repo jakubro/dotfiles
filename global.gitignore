@@ -7,5 +7,6 @@
 .venv/
 node_modules/
 
+.editorconfig
 .wslrc
 .nvmrc

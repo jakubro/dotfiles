@@ -25,8 +25,8 @@ function Get-Prompt($Settings) {
     $envs += " | "
   }
   $envs += "py"
-  if (![string]::IsNullOrWhiteSpace($env:PythonEnvRoot)) {
-    $envs += "@" + (Split-Path -Leaf $env:PythonEnvRoot)
+  if (![string]::IsNullOrWhiteSpace($env:PSPythonScopeRoot)) {
+    $envs += "@" + (Split-Path -Leaf $env:PSPythonScopeRoot)
   } else {
     $envs += "#" + (Get-DefaultPython) -replace 'python', ''
   }
@@ -35,8 +35,8 @@ function Get-Prompt($Settings) {
     $envs += " | "
   }
   $envs += "node"
-  if (![string]::IsNullOrWhiteSpace($env:NodeEnvRoot)) {
-    $envs += "@" + (Split-Path -Leaf $env:NodeEnvRoot)
+  if (![string]::IsNullOrWhiteSpace($env:PSNodeScopeRoot)) {
+    $envs += "@" + (Split-Path -Leaf $env:PSNodeScopeRoot)
   }
   $envs += "#" + (Get-DefaultNode) -replace 'node', ''
 
@@ -44,13 +44,8 @@ function Get-Prompt($Settings) {
 
   # WSL
 
-  if (![string]::IsNullOrWhiteSpace($env:WSLDistribution)) {
-    $wsl = ""
-    if (![string]::IsNullOrWhiteSpace($env:WSLUser)) {
-      $wsl += "$env:WSLUser@"
-    }
-    $wsl += $env:WSLDistribution
-
+  if (![string]::IsNullOrWhiteSpace($env:PSWSLDistribution)) {
+    $wsl = $env:PSWSLDistribution
     Write-Host -NoNewline -ForegroundColor Yellow " $wsl"
   }
 
