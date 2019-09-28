@@ -12,7 +12,7 @@ function ConvertFrom-Base64 {
 
   # Whether to return array of bytes.
     [switch]
-    $Raw = "UTF-8",
+    $Raw = $false,
 
   # Whether the $Value is a path to file which content we should decode.
     [switch]
