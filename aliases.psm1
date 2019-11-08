@@ -1,5 +1,18 @@
 Set-StrictMode -Version 2.0
 
+function Remove-RecursivelyNodeModules {
+  ls -Force -Recurse -Directory -ErrorAction SilentlyContinue |
+    Select-Object -ExpandProperty FullName |
+    ? {
+      $_.EndsWith('node_modules') -and -not $_.Substring(0, $_.LastIndexOf('node_modules')).Contains('node_modules')
+    } |
+    % {
+      if (Test-Path $_) {
+        rm -Recurse -Force -WhatIf $_
+      }
+    }
+}
+
 # sys
 Set-Alias which Get-Command
 Set-Alias grep sls
@@ -28,7 +41,7 @@ Set-Alias conda-activate Set-CondaEnvironment
 Set-Alias node-activate Set-NodeRuntime
 Set-Alias node12 "$env:NODEJS12_HOME\node.exe"
 Set-Alias npm12 "$env:NODEJS12_HOME\npm.cmd"
-Set-Alias node10 "$env:NODEJS10_HOME\node64.exe"
+Set-Alias node10 "$env:NODEJS10_HOME\node.exe"
 Set-Alias npm10 "$env:NODEJS10_HOME\npm.cmd"
 Set-Alias node8 "$env:NODEJS8_HOME\node.exe"
 Set-Alias npm8 "$env:NODEJS8_HOME\npm.cmd"

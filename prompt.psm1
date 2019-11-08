@@ -12,6 +12,7 @@ $PSPromptSettings = @{
 function Prompt {
   Enter-PythonScope
   Enter-NodeScope
+#  Enter-NodeModulesScope # todo: turned off since it breaks a lot of stuff, e.g. `npm i husky` fails
   Enter-WSLScope
   return Get-Prompt -Settings $PSPromptSettings
 }
