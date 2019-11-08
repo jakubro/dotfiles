@@ -1,18 +1,5 @@
 Set-StrictMode -Version 2.0
 
-function Remove-RecursivelyNodeModules {
-  ls -Force -Recurse -Directory -ErrorAction SilentlyContinue |
-    Select-Object -ExpandProperty FullName |
-    ? {
-      $_.EndsWith('node_modules') -and -not $_.Substring(0, $_.LastIndexOf('node_modules')).Contains('node_modules')
-    } |
-    % {
-      if (Test-Path $_) {
-        rm -Recurse -Force -WhatIf $_
-      }
-    }
-}
-
 # sys
 Set-Alias which Get-Command
 Set-Alias grep sls
