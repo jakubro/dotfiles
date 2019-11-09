@@ -7,7 +7,7 @@
 	rebase = true
 [core]
 	autocrlf = false
-    safecrlf = true
+	safecrlf = true
 	excludesfile = C:\\Users\\jakub\\Documents\\WindowsPowerShell\\global.gitignore
 	editor = 'C:\\Program Files\\Sublime Text 3\\sublime_text.exe' -w
 [commit]

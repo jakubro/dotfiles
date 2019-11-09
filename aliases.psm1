@@ -10,8 +10,8 @@ Set-Alias sublime_text "$env:ProgramFiles\Sublime Text 3\subl.exe"
 Set-Alias vim "${env:ProgramFiles(x86)}\Vim\vim80\vim.exe"
 
 # python
-Set-Alias python3 "C:\tools\python37\python.exe"
-Set-Alias pip3 "C:\tools\python37\Scripts\pip.exe"
+Set-Alias python3 "C:\tools\python38\python.exe"
+Set-Alias pip3 "C:\tools\python38\Scripts\pip.exe"
 Set-Alias python2 "C:\tools\python27\python.exe"
 Set-Alias pip2 "C:\tools\python27\Scripts\pip.exe"
 if (!(Test-Command python)) {
