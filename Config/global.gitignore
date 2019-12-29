@@ -1,12 +1,28 @@
+# IntelliJ
 .idea/
 *.iml
 
+# Visual Studio
 .vs/
 *.DotSettings
 
-.venv/
-node_modules/
-
+# Local configs
+.env.local
+.env.*.local
 .editorconfig
 .wslrc
 .nvmrc
+
+# Logs
+*.log
+
+# Node.js
+node_modules/
+
+# Python
+.venv
+__pycache__
+_pytest
+.pytest_cache
+*.dist-info
+*.egg-info
