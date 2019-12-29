@@ -1,5 +1,3 @@
-Set-StrictMode -Version 2.0
-
 $logName = "@jakubro/dotfiles"
 $logSource = Split-Path $PSCommandPath -Leaf
 TryCreate-EventLog -LogName $logName -Source $logSource

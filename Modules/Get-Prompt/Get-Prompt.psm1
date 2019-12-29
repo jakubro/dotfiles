@@ -1,7 +1,7 @@
 Set-StrictMode -Version 2.0
 
 function Get-Prompt($Settings) {
-  if ($Settings.Compact) {
+  if ($Settings.HideAll) {
     return "$ "
   }
 

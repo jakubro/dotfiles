@@ -36,9 +36,6 @@
     <option name="ENFORCE_TRAILING_COMMA" value="WhenMultiline" />
     <option name="IMPORT_SORT_MODULE_NAME" value="true" />
   </TypeScriptCodeStyleSettings>
-  <editorconfig>
-    <option name="ENABLED" value="false" />
-  </editorconfig>
   <yaml>
     <option name="INDENT_SEQUENCE_VALUE" value="false" />
     <option name="SEQUENCE_ON_NEW_LINE" value="true" />

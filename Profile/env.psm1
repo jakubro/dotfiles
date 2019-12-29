@@ -1,5 +1,3 @@
-Set-StrictMode -Version 2.0
-
 # cuda
 $env:Path = "$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.0\bin;$env:Path"
 $env:Path = "$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.0\extras\CUPTI\libx64;$env:Path"
@@ -22,9 +20,9 @@ $env:ANDROID_SDK = "$env:LocalAppData\Android\Sdk"
 $env:Path = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin;$env:Path"
 
 # node
-$env:NODEJS12_HOME = "$env:AppData\nvm\v12.5.0"
+$env:NODEJS12_HOME = "$env:AppData\nvm\v12.13.0"
 $env:NODEJS10_HOME = "$env:AppData\nvm\v10.17.0"
-$env:NODEJS8_HOME = "$env:AppData\nvm\v8.16.0"
+$env:NODEJS8_HOME = "$env:AppData\nvm\v8.16.2"
 
 # python
 $env:Path = "$env:AppData\Python\Python37\Scripts;$env:Path"

@@ -24,7 +24,7 @@ function Compare-EnvironmentVariable([string] $Name, [string] $OldValue, [string
 function Get-EnvironmentVariableBackupFile([string] $Name) {
   $Name = $Name.ToLower()
   $timestamp = [DateTime]::UtcNow.ToString("yyyyMMddHHmmssZ")
-  $parent = Join-Path (Get-Item $Profile).Directory.FullName ".backup"
+  $parent = Join-Path (Get-Item ~).FullName ".backup"
   $file = Join-Path $parent ".$Name.$timestamp.txt"
   if (-not (Test-Path $parent)) {
     mkdir $parent

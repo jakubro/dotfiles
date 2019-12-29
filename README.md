@@ -10,16 +10,16 @@ Preferences and settings for my toolbox.
 
 Shell prompt:
 
-- Shell starts in a predefined directory ([`INITIAL_CWD` in `~\.env`](.env.sample)).
+- Shell starts in a predefined directory ([`INITIAL_CWD` in `~\.env`](Config/.env.sample)).
 - When the shell starts it makes a backup of environment variable `PATH` to `~\.path.txt`.
 - Displays current time.
 - Displays explicit name of the current shell. (Set `$env:PSPromptName` to name the shell.)
 - Displays currently activated Python virtual environment and Node.js interpreter.
 - Displays current WSL distribution and user.
 - Displays current AWS CLI profile. (Set `$env:AWS_DEFAULT_PROFILE` to switch between profiles.)
-- Displays only name of the current directory, and not its full path (configurable via [`$env:PSPromptSettings.FullPath`](prompt.psm1)).
+- Displays only name of the current directory, and not its full path (configurable via [`$env:PSPromptSettings.FullPath`](Profile/prompt.psm1)).
 - Displays git status - working tree state, current branch and number of commits behind and ahead.
-- All of the info above can be hidden via [`$env:PSPromptSettings.Compact`](prompt.psm1).
+- All of the info above can be hidden via [`$env:PSPromptSettings.HideAll`](Profile/prompt.psm1).
 - Automatically activates Python virtual environment (only venv) on entering a directory, if it or any of its parents contains a venv located in subdirectory `.venv`, and deactivates it on entering a directory that does not satisfy such condition.
 - Automatically activates Node.js interpreter on entering a directory, if it or any of its parents contains a file `.nvmrc` with a version of the desired Node.js interpreter, and deactivates it on entering a directory that does not satisfy such condition.
 - Automatically binds `wsl` command to appropriate distribution and user on entering a directory, if it or any of its parents contains a file `.wslrc` with a name of the desired WSL distribution to be used, and roll backs to default `wsl` command on entering a directory that does not satisfy such condition.

@@ -1,5 +1,3 @@
-Set-StrictMode -Version 2.0
-
 # sys
 Set-Alias which Get-Command
 Set-Alias grep sls
@@ -10,18 +8,34 @@ Set-Alias sublime_text "$env:ProgramFiles\Sublime Text 3\subl.exe"
 Set-Alias vim "${env:ProgramFiles(x86)}\Vim\vim80\vim.exe"
 
 # python
-Set-Alias python3 "C:\tools\python38\python.exe"
-Set-Alias pip3 "C:\tools\python38\Scripts\pip.exe"
-Set-Alias python2 "C:\tools\python27\python.exe"
-Set-Alias pip2 "C:\tools\python27\Scripts\pip.exe"
 if (!(Test-Command python)) {
   Set-Alias python python3
   Set-Alias pip pip3
 }
-Set-Alias pip3-do Invoke-Pip3Do
-Set-Alias pip2-do Invoke-Pip2Do
-Set-Alias pip-do Invoke-Pip3Do
-Set-Alias conda "C:\ProgramData\Miniconda3\Scripts\conda.exe"
+Set-Alias pip-do pip3-do
+
+Set-Alias python3 python38
+Set-Alias python2 python27
+
+Set-Alias pip3 pip38
+Set-Alias pip2 pip27
+
+Set-Alias pip3-do pip38-do
+Set-Alias pip2-do pip27-do
+
+Set-Alias python38 "C:\tools\python38\python.exe"
+Set-Alias python37 "C:\tools\python37\python.exe"
+Set-Alias python27 "C:\tools\python27\python.exe"
+
+Set-Alias pip38 "C:\tools\python38\Scripts\pip.exe"
+Set-Alias pip37 "C:\tools\python37\Scripts\pip.exe"
+Set-Alias pip27 "C:\tools\python27\Scripts\pip.exe"
+
+Set-Alias pip38-do Invoke-Pip38Do
+Set-Alias pip37-do Invoke-Pip37Do
+Set-Alias pip27-do Invoke-Pip27Do
+
+Set-Alias conda "C:\tools\Miniconda3\Scripts\conda.exe"
 Set-Alias conda-activate Set-CondaEnvironment
 
 # node

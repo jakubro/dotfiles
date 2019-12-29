@@ -1,28 +1,38 @@
 Set-StrictMode -Version 2.0
 
-function Invoke-Pip3Do {
-  Invoke-PipDo -Version 3 $args
+function Invoke-Pip38Do {
+  Invoke-PipDo -Version '3.8' $args
 }
 
-function Invoke-Pip2Do {
-  Invoke-PipDo -Version 2 $args
+function Invoke-Pip37Do {
+  Invoke-PipDo -Version '3.7' $args
 }
 
-function Invoke-PipDo([int] $Version, $Arguments) {
-  if ($Version -eq 3) {
-    python3 -V
-  } elseif ($Version -eq 2) {
-    python2 -V
+function Invoke-Pip27Do {
+  Invoke-PipDo -Version '2.7' $args
+}
+
+function Invoke-PipDo($Version, $Arguments) {
+  if ($Version -eq '3.8') {
+    python38 -V
+  } elseif ($Version -eq '3.7') {
+    python37 -V
+  } elseif ($Version -eq '2.7') {
+    python27 -V
   } else {
-    throw "$Version is not a valid Python version. Acceptable values are: 3, 2"
+    throw "$Version is not a valid Python version"
   }
 
   if (!$env:PSPythonScopeRoot -or !(Test-Path (Join-Path $env:PSPythonScopeRoot '.venv\Scripts\Activate.ps1'))) {
     Write-Host -ForegroundColor Yellow "Virtual environment does not exist. Creating new one ..."
-    if ($Version -eq 3) {
-      python3 -m venv .venv
-    } elseif ($Version -eq 2) {
-      python2 -m virtualenv .venv
+    if ($Version -eq '3.8') {
+      python38 -m venv .venv
+    } elseif ($Version -eq '3.7') {
+      python37 -m venv .venv
+    } elseif ($Version -eq '2.7') {
+      python27 -m virtualenv .venv
+    } else {
+      throw "$Version is not a valid Python version"
     }
   } else {
     Write-Host -ForegroundColor Yellow "Using virtual environment from $env:PSPythonScopeRoot ..."
@@ -30,9 +40,14 @@ function Invoke-PipDo([int] $Version, $Arguments) {
 
   Enter-PythonScope
 
-  if (!(which python).Source.StartsWith((Join-Path $env:PSPythonScopeRoot '.venv')) -or
-      !(which pip).Source.StartsWith((Join-Path $env:PSPythonScopeRoot '.venv'))) {
-    throw "python.exe or pip.exe does not point to current virtual environment."
+  try {
+    if (!(which python).Source.StartsWith((Join-Path $env:PSPythonScopeRoot '.venv')) -or
+        !(which pip).Source.StartsWith((Join-Path $env:PSPythonScopeRoot '.venv'))) {
+      throw "python.exe or pip.exe does not point to current virtual environment."
+    }
+  } catch {
+    throw $_
+    return
   }
 
   Write-Host -ForegroundColor Yellow "Running pip $Arguments ..."
