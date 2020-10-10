@@ -8,6 +8,10 @@ function Invoke-Pip37Do {
   Invoke-PipDo -Version '3.7' $args
 }
 
+function Invoke-Pip36Do {
+  Invoke-PipDo -Version '3.6' $args
+}
+
 function Invoke-Pip27Do {
   Invoke-PipDo -Version '2.7' $args
 }
@@ -17,6 +21,8 @@ function Invoke-PipDo($Version, $Arguments) {
     python38 -V
   } elseif ($Version -eq '3.7') {
     python37 -V
+  } elseif ($Version -eq '3.6') {
+    python36 -V
   } elseif ($Version -eq '2.7') {
     python27 -V
   } else {
@@ -29,6 +35,8 @@ function Invoke-PipDo($Version, $Arguments) {
       python38 -m venv .venv
     } elseif ($Version -eq '3.7') {
       python37 -m venv .venv
+    } elseif ($Version -eq '3.6') {
+      python36 -m venv .venv
     } elseif ($Version -eq '2.7') {
       python27 -m virtualenv .venv
     } else {

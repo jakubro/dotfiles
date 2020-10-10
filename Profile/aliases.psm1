@@ -1,6 +1,7 @@
 # sys
 Set-Alias which Get-Command
 Set-Alias grep sls
+Set-Alias chrome "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe"
 
 # editors
 Set-Alias devenv "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe"
@@ -25,14 +26,17 @@ Set-Alias pip2-do pip27-do
 
 Set-Alias python38 "C:\tools\python38\python.exe"
 Set-Alias python37 "C:\tools\python37\python.exe"
+Set-Alias python36 "C:\tools\python36\python.exe"
 Set-Alias python27 "C:\tools\python27\python.exe"
 
 Set-Alias pip38 "C:\tools\python38\Scripts\pip.exe"
 Set-Alias pip37 "C:\tools\python37\Scripts\pip.exe"
+Set-Alias pip36 "C:\tools\python36\Scripts\pip.exe"
 Set-Alias pip27 "C:\tools\python27\Scripts\pip.exe"
 
 Set-Alias pip38-do Invoke-Pip38Do
 Set-Alias pip37-do Invoke-Pip37Do
+Set-Alias pip36-do Invoke-Pip36Do
 Set-Alias pip27-do Invoke-Pip27Do
 
 Set-Alias conda "C:\tools\Miniconda3\Scripts\conda.exe"
